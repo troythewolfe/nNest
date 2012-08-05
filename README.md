@@ -31,6 +31,14 @@ The first build object that has a 'true' condition is set the current build.  Th
  * build (path to specific build file for this build)
  * index (path to index template to use for this build)
  * init (path to init js file that will be sent to client for this build)
- * condition (the conditions that have to be met to use this build
+ * condition (the conditions that have to be met to use this build, generally based on the helpers/client.js object
 
 ###helpers/client.js
+* user-agent parsing, return formatted client object
+* 
+
+###builders/builder_name.js
+* an individual app builder that is assigned to one or more builds
+* retrieves views
+* retrieves and pushes css and js includes
+* constructs and returns index
