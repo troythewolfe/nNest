@@ -1,8 +1,7 @@
 #requires
 express = require 'express'
-_ = require 'underscore'
-builds = require './lib/builds.js'
-device = require './lib/helpers/device.js'
+buildRouter = require './lib/build_router.js'
+client = require './lib/helpers/client.js'
 
 app = express.createServer()
 
@@ -10,18 +9,20 @@ app = express.createServer()
 app.configure ->
 	 app.use '/', express.static __dirname + '/public'
 
+getApp = (req, res)->
+	index = buildRouter.getIndex client.detect req
+	res.send index
+
 #app root
 app.get '/', (req, res) ->
-	index = builds.route device.detect req
-	res.send index
+	getApp req, res
 
 #app with view route
 app.get '/view/*', (req, res) ->
-	index = builds.route device.detect req
-	res.send index
+	getApp req, res
 
 #get requests
-app.get '/fetch/:format/', (req, res) ->
+app.get '/fetch/:format/*', (req, res) ->
 	format = req.params['format']
 	res.send format
 

@@ -13,7 +13,7 @@ detect = (request) ->
 	then device.type.mobile = true 
 
 	if /Windows NT/.test ua 
-	then device.type.windows =  /Windows NT ([0-9\._]+)[\);]/.exec(ua)[1] 
+	then device.type.windows =  /Windows NT ([0-9\._]+)[\);]/.exec(ua)[1]
 
 	if /(Intel|PPC) Mac OS X/.test ua 
 	then device.type.mac = (/(Intel|PPC) Mac OS X ?([0-9\._]*)[\)\;]/.exec(ua)[2].replace /_/g, '.' || true)
@@ -31,9 +31,7 @@ detect = (request) ->
 	then device.type.android = /Android ([0-9\.]+)[\);]/.exec(ua)[1] 
 
 	if /webOS\//.test ua 
-	then device.type.webos = /webOS\/([0-9\.]+)[\);]/.exec(ua)[1] 
-
-	console.log device
+	then device.type.webos = /webOS\/([0-9\.]+)[\);]/.exec(ua)[1]
 
 	device
 
