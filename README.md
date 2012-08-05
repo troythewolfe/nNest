@@ -34,8 +34,9 @@ The first build object that has a 'true' condition is set the current build.  Th
  * condition (the conditions that have to be met to use this build, generally based on the helpers/client.js object
 
 ###helpers/client.js
-* user-agent parsing, return formatted client object
-* 
+* user-agent parsing
+* returns formatted client object
+
 
 ###builders/builder_name.js
 * an individual app builder that is assigned to one or more builds
