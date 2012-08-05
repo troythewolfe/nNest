@@ -33,6 +33,8 @@ detect = (request) ->
 	if /webOS\//.test ua 
 	then device.type.webos = /webOS\/([0-9\.]+)[\);]/.exec(ua)[1] 
 
+	console.log device
+
 	device
 
 module.exports.detect = detect
