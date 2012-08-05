@@ -32,6 +32,8 @@ The first build object that has a 'true' condition is set the current build.  Th
  * index (path to index template to use for this build)
  * init (path to init js file that will be sent to client for this build)
  * condition (the conditions that have to be met to use this build, generally based on the helpers/client.js object
+* sets base template properties
+* sets global js and css (if any)
 
 ###helpers/client.js
 * user-agent parsing
