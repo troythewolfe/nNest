@@ -41,7 +41,7 @@ The first build object that has a 'true' condition is set the current build.  Th
 
 
 ###builders/builder_name.js
-* an individual app builder that is assigned to one or more builds
+* an index builder that is assigned to one or more builds
 * retrieves views
 * retrieves and pushes css and js includes
 * constructs and returns index
