@@ -1,6 +1,8 @@
 nNest
 =====
 
+# UNDER CONSTRUCTION
+
 Node, express and backbone server/client app framework with a focus on code reuse between server/client and device builds.
 
 ##Required modules
