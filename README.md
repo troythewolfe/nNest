@@ -1,7 +1,7 @@
 nNest
 =====
 
-Node and backbone js server/client framework with a focus on code reuse between device builds
+Node, express and backbone server/client app framework with a focus on code reuse between server/client and device builds.
 
 ##Required modules
 * express
