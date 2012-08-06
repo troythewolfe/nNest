@@ -3,6 +3,12 @@ nNest
 
 Node and backbone js server/client framework with a focus on code reuse between device builds
 
+##Required modules
+* express
+* mustache
+* ua-parser
+* underscore
+
 ##CoffeeScript cmd
 TODO: Grunt these tasks
 
