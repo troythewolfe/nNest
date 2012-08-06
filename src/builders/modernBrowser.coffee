@@ -8,7 +8,7 @@ make = (build) ->
 	content =
 		header: headerView
 		sidebar: 'sidebar'
-		content: JSON.stringify build
+		content: '<pre>' + JSON.stringify(build, null, '    ') + '</pre>'
 
 	builder.getIndex build, content
 
