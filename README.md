@@ -10,8 +10,11 @@ Node and backbone js server/client framework with a focus on code reuse between 
 * underscore
 
 ##CoffeeScript cmd
+
 TODO: Grunt these tasks
+
 coffee -o lib/ -cw src/
+
 coffee -cw index.coffee
 
 ##Framework Components
