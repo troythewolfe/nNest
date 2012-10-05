@@ -3,7 +3,7 @@ pythonNest
 
 # UNDER CONSTRUCTION
 
-Python, flask and backbone server/client app framework with a focus on code reuse between server/client and device builds.
+Python, flask and backbone app framework with a focus on putting as much responsibility on the build process as possible and code reuse between device source code.
 
 ##CoffeeScript cmd
 coffee -o lib/ -cw src/
@@ -12,4 +12,5 @@ coffee -cw index.coffee
 
 ##TODO
 * Adjust all configs to populate from base classes (root, page and view)
-* 
+* Bring nested view includes into index
+* Make build process adaptable to both index and ajax approaches
