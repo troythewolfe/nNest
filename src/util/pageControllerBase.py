@@ -11,13 +11,6 @@ class Page():
 		self.pageName = pageName
   
   def render(self, content):
-		self.titleTag = 'a different page title'
-
 		self.baseTemplate = inc.index(self.pageName, self.profile['name'])
-
-		templateContent = {
-			'title' : self.titleTag,
-			'bodyContent' : content
-		}
 		
-		return pystache.render(self.baseTemplate['source'], templateContent)
+		return pystache.render(self.baseTemplate['source'], content)

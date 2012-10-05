@@ -2,4 +2,13 @@ from util.pageControllerBase import Page
 
 def init(profile):
 	page = Page(profile, 'home')
-	return page.render('home content')
+
+	pageContent = {
+		'title' : 'Home Page',
+		'content' : 'here is some home page content'
+	}
+
+	if profile['name'] == 'chromeWeb':
+		pageContent['title'] = 'Chrome Home Page'
+
+	return page.render(pageContent)

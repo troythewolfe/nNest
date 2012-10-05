@@ -130,6 +130,9 @@ class Build():
 		cssFile.write(self.renderCSS())
 		self.css.append('/' + mainCssInc)
 
+		if isinstance(content, dict):
+		   content = content['source']
+
 		#assing template variables
 		templateContent = {
 			'title' : self.titleTag,

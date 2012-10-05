@@ -5,7 +5,6 @@ def init(profile):
 
 	return {
 		'pageName' : pageName,
-		#'titleTag' : 'This is a better title string',
 
 		'pageTemplate' : inc.html('home', 'page', pageName),
 
