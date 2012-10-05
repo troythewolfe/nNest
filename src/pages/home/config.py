@@ -1,4 +1,4 @@
-import incGet
+import inc
 
 def init(profile):
 	pageName = 'home'
@@ -7,9 +7,9 @@ def init(profile):
 		'pageName' : pageName,
 		#'titleTag' : 'This is a better title string',
 
-		'pageTemplate' : incGet.html('home', 'page', pageName),
+		'pageTemplate' : inc.html('home', 'page', pageName),
 
 		'jsInc' : [
-			incGet.js('home', 'page', pageName)
+			inc.js('home', 'page', pageName)
 		],
 	}

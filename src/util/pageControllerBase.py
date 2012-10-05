@@ -1,15 +1,13 @@
-import pages.pageGet as pageGet
-import templates.template as template
+import inc
 import pystache
 
 class Page():
   def __init__(self):
-		print 'pageControllerBase init'
+		pass
   
   def render(self, content):
 		self.titleTag = 'a different page title'
 		
-		#will actually be the 
 		self.baseTemplate = 'base'
 
 		templateContent = {
@@ -17,5 +15,4 @@ class Page():
 			'bodyContent' : content
 		}
 		
-		#return 'here is a page'
-		return pystache.render(template.get(self.baseTemplate), templateContent)
+		return pystache.render(inc.html(self.baseTemplate)['source'], templateContent)

@@ -6,6 +6,5 @@ def init(profile):
 		
 		'jsInc' : [
 			'todo.js'
-		],
-
+		]
 	}

@@ -1,4 +1,4 @@
-import incGet
+import inc
 import config
 import pystache
 import copy
@@ -141,7 +141,7 @@ class Build():
 
 		#create index file
 		indexFile = open('indexes/' + profilePage + '.html', 'w+')
-		pageTemplate = incGet.html(self.baseTemplate)
+		pageTemplate = inc.html(self.baseTemplate)
 		indexFile.write(pystache.render(pageTemplate['source'], templateContent))
 
 build = Build()

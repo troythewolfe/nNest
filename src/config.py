@@ -1,4 +1,4 @@
-import incGet
+import inc
 
 ###############
 # Make all configs extend base config class (root, page and view)
@@ -37,13 +37,13 @@ def init(profile):
 		
 		'jsInc': [
 				'https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js',
-				incGet.js('third-party/jquery-1.8.2'),
-				incGet.js('third-party/backbone-0.9.2'),
-				incGet.js('third-party/underscore-1.4.0')
+				inc.js('third-party/jquery-1.8.2'),
+				inc.js('third-party/backbone-0.9.2'),
+				inc.js('third-party/underscore-1.4.0')
 		],
 		
 		'cssInc' : [
 				'http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css',
-		  	incGet.css('main')
+		  	inc.css('main')
 		]
 	}

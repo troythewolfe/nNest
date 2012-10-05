@@ -1,4 +1,4 @@
-import incGet
+import inc
 
 def init(profile):
 	viewName = 'nav'
@@ -6,9 +6,9 @@ def init(profile):
 	return {
 		'viewName' : viewName,
 		'jsInc' : [
-			incGet.js('models/nav', 'view', viewName)
+			inc.js('models/nav', 'view', viewName)
 		],
 		'cssInc' : [
-			incGet.css('nav', 'view', viewName)
+			inc.css('nav', 'view', viewName)
 		],
 	}

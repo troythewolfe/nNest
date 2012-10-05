@@ -6,12 +6,12 @@ def init(app, request):
 	@app.route('/')
 	def home():
 		import pages.home.controller as page
-		return processPage(page, {})
+		return processPage(page)
 
 	@app.route('/calendar/')
 	def calendar():
 		import pages.calendar.controller as page
-		return processPage(page, {})
+		return processPage(page)
 		
 	@app.route('/calendar/<year>/<month>/<day>/')
 	def calendarDate(year, month, day):
@@ -25,7 +25,7 @@ def init(app, request):
 	@app.route('/todo/')
 	def todo():
 		import pages.todo.controller as page
-		return processPage(page, {})
+		return processPage(page)
 	
 	#system pages
 	@app.errorhandler(404)
@@ -33,5 +33,5 @@ def init(app, request):
 		return 'page not found'
 
 	#helpers
-	def processPage(page, pathParams):
+	def processPage(page, pathParams={}):
 		return page.init(profileParser.init(request, pathParams))
