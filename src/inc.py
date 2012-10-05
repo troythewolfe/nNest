@@ -6,6 +6,7 @@ cssPath = 'css/'
 htmlPath = 'html/'
 viewPath = 'views/'
 pagePath = 'pages/'
+indexPath = 'indexes/'
 
 def js(fileName, type='', name=''):
 	ext = 'js'
@@ -59,6 +60,18 @@ def html(fileName, type='', name=''):
 		localHtmlPath = pagePath + name + '/' + htmlPath
 
 	filePath = localHtmlPath + fileName + '.' + ext
+
+	htmlFile = {
+		'location' : filePath,
+		'source' : open(filePath).read()
+	}
+
+	return htmlFile
+
+def index(page, profile):
+	ext = 'html'
+
+	filePath = indexPath + profile + '-' + page + '.' + ext
 
 	htmlFile = {
 		'location' : filePath,

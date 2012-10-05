@@ -1,5 +1,5 @@
 from util.pageControllerBase import Page
-page = Page()
 
-def init(route):
-	return page.render('home')
+def init(profile):
+	page = Page(profile, 'home')
+	return page.render('home content')

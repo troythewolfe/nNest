@@ -2,7 +2,6 @@ import inc
 import config
 import pystache
 import copy
-import util.profileParser
 import profileList
 import shutil
 import os
