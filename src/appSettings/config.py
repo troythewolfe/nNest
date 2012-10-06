@@ -38,8 +38,12 @@ def init(profile):
 				inc.js('third-party/backbone-0.9.2')
 		],
 		
+		'jsVersion' : 1,
+		
 		'cssInc' : [
-				'http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css',
+			css	'http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css',
 		  	inc.css('main')
-		]
+		],
+		
+		'cssVersion' : 1
 	}

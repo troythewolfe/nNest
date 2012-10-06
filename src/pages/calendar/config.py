@@ -6,5 +6,4 @@ def init(profile):
 		'jsInc' : [
 			'calendar.js'
 		],
-
 	}

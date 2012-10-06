@@ -11,4 +11,8 @@ def init(profile):
 		'jsInc' : [
 			inc.js('home', 'page', pageName)
 		],
+		
+		'jsVersion' : 1,
+		
+		'cssVersion' : 1
 	}

@@ -3,7 +3,7 @@ def init():
 	profiles = {
 		'modernWeb' : 'modernWeb',
 		'legacyWeb' : 'legacyWeb',
-		'chromeWeb' : 'chromeWeb'
+		'chromeWeb' : 'chromeWeb' 
 	}
 
 	return profiles
