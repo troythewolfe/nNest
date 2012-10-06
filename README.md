@@ -5,21 +5,24 @@ pythonNest
 
 Python, flask and backbone app framework with a focus on putting as much responsibility on the build process as possible and code reuse between device source code.
 
-#Python Dependencies
+##Python Dependencies
 * flask
 * httpagentparser
 * pystache
 
-#Build:
+##Build:
 run src/build.py
 
-#Start Server:
+##Start Server:
 run src/server.py
 
 ##CoffeeScript cmd
 coffee -o lib/ -cw src/
 
 coffee -cw index.coffee
+
+##Build-time vs Run-time
+Config.py files control build time behavior, and Controller.py files control run time.
 
 ##TODO
 * make build not break when indexes starts out empty
