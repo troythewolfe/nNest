@@ -1,8 +1,8 @@
-import inc
-import config
+import util.inc as inc
+import appSettings.config as config
+import appSettings.profileList as profileList
 import pystache
 import copy
-import profileList
 import shutil
 import os
 import sys

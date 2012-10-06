@@ -1,5 +1,5 @@
 from ua_parser import user_agent_parser
-import util.profileParser as profileParser
+import profileParser
 
 def init(app, request):
 	#app pages

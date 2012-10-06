@@ -1,5 +1,5 @@
 from flask import Flask, request
-import pageRouter
+import appSettings.pageRouter as pageRouter
 
 #create flask app object
 app = Flask(__name__, static_path='/static')

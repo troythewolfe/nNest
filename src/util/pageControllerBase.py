@@ -1,4 +1,4 @@
-import inc
+import util.inc as inc
 import pystache
 import sys
 sys.path.append('/')

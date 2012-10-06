@@ -1,4 +1,4 @@
-import inc
+import util.inc as inc
 
 def init(profile):
 	viewName = 'nav'
