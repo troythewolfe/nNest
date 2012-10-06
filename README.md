@@ -9,6 +9,8 @@ Python, flask and backbone app framework with a focus on putting as much respons
 * flask
 * httpagentparser
 * pystache
+* pyYamlg
+* ua-parser (https://github.com/tobie/ua-parser)
 
 ##Build:
 run src/build.py
