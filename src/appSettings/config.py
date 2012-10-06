@@ -36,14 +36,10 @@ def init(profile):
 				inc.js('third-party/jquery-1.8.2'),
 				inc.js('third-party/underscore-1.4.0'),
 				inc.js('third-party/backbone-0.9.2')
-		],
-		
-		'jsVersion' : 1,
+		]
 		
 		'cssInc' : [
 			css	'http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css',
 		  	inc.css('main')
-		],
-		
-		'cssVersion' : 1
+		]
 	}

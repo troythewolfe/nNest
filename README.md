@@ -27,7 +27,8 @@ coffee -cw index.coffee
 ##Build-time vs Run-time
 Config.py files control build time behavior, and Controller.py files control run time.
 
-##TODO
+##TODO 
+* use filecomp to check if the gen css/js files are different, and if so, add timestamp to break cache
 * seperate out global vs page level css/js so that global can be cache
 * add cache breaking mechanism to generated files
 * make build not break when generated directories start out empty
