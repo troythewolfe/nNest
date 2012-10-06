@@ -5,6 +5,12 @@ pythonNest
 
 Python, flask and backbone app framework with a focus on putting as much responsibility on the build process as possible and code reuse between device source code.
 
+Build:
+run src/build.py
+
+Start Server:
+run src/server.py
+
 ##CoffeeScript cmd
 coffee -o lib/ -cw src/
 
