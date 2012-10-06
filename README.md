@@ -17,6 +17,7 @@ coffee -o lib/ -cw src/
 coffee -cw index.coffee
 
 ##TODO
+* make framework installable: http://stackoverflow.com/questions/5360873/how-do-i-package-a-python-application-to-make-it-pip-installable
 * Adjust all configs to populate from base classes (root, page and view)
 * In build process, have a flag to include html templates as js obj
 * Add build process watcher to run build.py
