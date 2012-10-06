@@ -10,10 +10,10 @@ Python, flask and backbone app framework with a focus on putting as much respons
 * httpagentparser
 * pystache
 
-Build:
+#Build:
 run src/build.py
 
-Start Server:
+#Start Server:
 run src/server.py
 
 ##CoffeeScript cmd
