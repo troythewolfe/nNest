@@ -1,6 +1,6 @@
 class ConfigPage():
-  def __init__(self, name):
-		self.name = name
+	def __init__(self, name):
+	self.name = name
 		self.template = ''
 		self.views = {}
 		self.jsInc = {}
