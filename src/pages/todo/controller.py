@@ -1,5 +1,5 @@
-from util.pageController import Page
-page = Page()
+from util.controllerPage import View
+view = View()
 
 def init(route):
-	return page.render('todo')
+	return view.render('nav content')
