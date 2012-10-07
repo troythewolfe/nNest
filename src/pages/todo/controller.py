@@ -1,4 +1,4 @@
-from util.pageControllerBase import Page
+from util.pageController import Page
 page = Page()
 
 def init(route):

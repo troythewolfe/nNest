@@ -1,2 +1,2 @@
-def foo():
-	return "testFunc in __init__ in testView"
+def init():
+	return "run time view html"
