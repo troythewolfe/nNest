@@ -1,14 +1,11 @@
 import util.inc as inc
+from util.configPage import ConfigPage
 
 def init(profile):
-	pageName = 'home'
+	config = ConfigPage('home')
 
-	return {
-		'pageName' : pageName,
+	config.template = config.set('template')
 
-		'pageTemplate' : inc.html('home', 'page', pageName),
-
-		'jsInc' : [
-			inc.js('home', 'page', pageName)
-		]
-	}
+	config.jsInc =[
+		config.set('js')
+	]

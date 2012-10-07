@@ -1,11 +1,15 @@
 import profileList
+from util.profile import Profile
 from ua_parser import user_agent_parser
 
 def init(request, pathParams={}):
+	print 'profileParser'
+
+
 	profiles = profileList.init()
 	uaString = request.headers.get('User-Agent')
 	ua = user_agent_parser.Parse(uaString)
-
+                                 
 	#default
 	profileName = profiles['modernWeb']
 	

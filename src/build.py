@@ -32,17 +32,19 @@ class Build():
 			self.config = config.init(self.profile)
 
 			#loop over each page listed in config
-			for pageConfig in self.config['pages']:
+			for pageConfig in self.config.pages:
 				#apply global config
-				self.baseTemplate = copy.copy(self.config['baseTemplate'])
-				self.js = copy.copy(self.config['jsInc'])
-				self.css = copy.copy(self.config['cssInc'])
-				self.views = copy.copy(self.config['views'])
-				self.titleTag = copy.copy(self.config['titleTag'])
+				self.baseTemplate = copy.copy(self.config.baseTemplate)
+				self.js = copy.copy(self.config.jsInc)
+				self.css = copy.copy(self.config.cssInc)
+				self.views = copy.copy(self.config.views)
+				self.head = {
+					'title' : copy.copy(self.config.head['title'])
+				}
 				self.pageTemplate = '{{{content}}}'
 				
 				#apply page config
-				self.applyPageConfig(self.config['pages'][pageConfig])
+				self.applyPageConfig(self.config.pages[pageConfig])
 	
 				#apply view configs
 				if self.views:
@@ -135,7 +137,7 @@ class Build():
 
 		#assing template variables
 		templateContent = {
-			'title' : self.titleTag,
+			#'title' : self.titleTag,
 			'jsInc' : self.getJS(),
 			'cssInc' : self.getCSS(),
 			'bodyContent' : content

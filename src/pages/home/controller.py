@@ -1,11 +1,4 @@
-<<<<<<< HEAD
-from util.pageController import Page
-=======
 from util.controllerPage import Page
-
-print 'page home controller'
-
->>>>>>> added controller and config base objects
 
 def init(profile):
 	page = Page(profile, 'home')
