@@ -1,2 +1,5 @@
-def foo():
-	return "testFunc in __init__ in testView"
+from util.controllerView import View
+View = View()
+
+def init(route):
+	return View.render('calendar')

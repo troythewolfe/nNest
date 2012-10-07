@@ -1,4 +1,7 @@
-from util.pageControllerBase import Page
+from util.controllerPage import Page
+
+print 'page home controller'
+
 
 def init(profile):
 	page = Page(profile, 'home')
