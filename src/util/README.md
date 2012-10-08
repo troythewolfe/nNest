@@ -174,9 +174,9 @@ The path values for the various assets are hard coded in this file
 
 **Parameters**
 
-- `fileName [String]` Name of the file to get, without the extension.  Example: '`homeHelpers`'
-- `type [String]` Type of file to get. Accepts: `'page'` or `'view'`
-- `name [String]` Name of `page` or `view`. Example: `'nav'` or '`home`'
+- `fileName [String]` Name of the file to get, without the extension.  Example: '`homeHelpers`'.  If this is the only parameter supplied, it will look in `src/js`
+- `type [String] optional` Type of file to get. Accepts: `'page'` or `'view'`
+- `name [String] optional` Name of `page` or `view`. Example: `'nav'` or '`home`'
 
 ####css
 
