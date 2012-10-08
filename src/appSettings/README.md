@@ -16,7 +16,7 @@ This list tells `build.py` what profile assets to build.
 
 ###Returns
 
-`List` of `Strings` representing the profile names.
+`[List][String]` representing the profile names.
 
 #profileParser.py
 
@@ -30,7 +30,7 @@ This list tells `build.py` what profile assets to build.
 
 ###Returns
 
-`String` of the current profile name.
+`[String]` of the current profile name.
 
 #router.py
 
