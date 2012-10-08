@@ -55,26 +55,24 @@ class Build():
 				self.render(self.pageTemplate, self.pageName, self.profile)
 	
 	#overwrite defaults and add page specific configs
-	def applyPageConfig(self, pageConfig):		
-		if 'titleTag' in pageConfig:
-			self.titleTag = pageConfig['titleTag']
+	def applyPageConfig(self, pageConfig):
+		if 'title' in pageConfig.head:
+			self.head['title'] = copy.copy(pageConfig.head['title'])
 	
-		if 'baseTemplate' in pageConfig:
-			self.baseTemplate = pageConfig['baseTemplate']
+		if hasattr(pageConfig, 'baseTemplate'):
+			self.baseTemplate = copy.copy(pageConfig.baseTemplate)	
 		
-		if 'jsInc' in pageConfig:
-			self.js.extend(pageConfig['jsInc'])
-		
-		if 'cssInc' in pageConfig:
-			self.css.extend(pageConfig['cssInc'])
-		
-		if 'pageTemplate' in pageConfig:
-			self.pageTemplate = pageConfig['pageTemplate']
+		if hasattr(pageConfig, 'jsInc'):
+			self.js.extend(copy.copy(pageConfig.jsInc))
 
-		if 'pageName' in pageConfig:
-			self.pageName = pageConfig['pageName']
+		if hasattr(pageConfig, 'cssInc'):
+			self.js.extend(copy.copy(pageConfig.cssInc))
 		
-		#print self.config['pages'][pageConfig]
+		if hasattr(pageConfig, 'html'):
+			self.pageTemplate = copy.copy(pageConfig.html)
+
+		if hasattr(pageConfig, 'name'):
+			self.pageName = copy.copy(pageConfig.name)
 
 	def applyViewConfigs(self, views):
 		#if 'jsInc' in views['']:
@@ -137,7 +135,7 @@ class Build():
 
 		#assing template variables
 		templateContent = {
-			#'title' : self.titleTag,
+			'title' : self.head['title'],
 			'jsInc' : self.getJS(),
 			'cssInc' : self.getCSS(),
 			'bodyContent' : content

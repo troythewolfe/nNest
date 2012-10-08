@@ -1,9 +1,14 @@
+import util.inc as inc
+from util.configPage import ConfigPage
+import os
+
 def init(profile):
-	pageName = 'calendar'
-	return {
-		'pageName' : pageName,
-		'titleTag' : 'calendar page title string',
-		'jsInc' : [
-			'calendar.js'
-		],
-	}
+	config = ConfigPage(os.path.abspath(__file__))
+
+	#config.html = config.set('html')
+
+	#config.jsInc =[
+	#	config.set('js')
+	#]
+
+	return config

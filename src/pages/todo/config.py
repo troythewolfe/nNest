@@ -1,10 +1,14 @@
+import util.inc as inc
+from util.configPage import ConfigPage
+import os
+
 def init(profile):
-	pageName = 'todo'
-	return {
-		'pageName' : pageName,
-		'titleTag' : 'todo page title string',
-		
-		'jsInc' : [
-			'todo.js'
-		]
-	}
+	config = ConfigPage(os.path.abspath(__file__))
+
+	#config.html = config.set('html')
+
+	#config.jsInc =[
+	#	config.set('js')
+	#]
+
+	return config
