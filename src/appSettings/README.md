@@ -6,7 +6,7 @@ Build time config that extends `util.configRoot`.  Accepts `profile` as its `ini
 
 This list tells `build.py` what profile assets to build. 
 
-`init` [Function] build-time
+`init [Function]` build-time
 
 	profiles = [
 		'modernWeb',
@@ -20,7 +20,7 @@ This list tells `build.py` what profile assets to build.
 
 #profileParser.py
 
-`init` [Function] run-time
+`init [Function]` run-time
 
 ###Parameters
 
@@ -34,7 +34,7 @@ This list tells `build.py` what profile assets to build.
 
 #router.py
 
-`init` [Function] run-time
+`init [Function]` run-time
 
 ###Parameters
 
