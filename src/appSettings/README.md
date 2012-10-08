@@ -1,13 +1,13 @@
 #config.py
 
+Build time config that extends `util.configRoot`.
+
+`init [Function]` build-time
+
 ###Requires
 
 	import util.inc as inc
 	from util.configRoot import ConfigRoot
-
-Build time config that extends `util.configRoot`.
-
-`init [Function]` build-time
 
 ###Parameters
 
