@@ -30,6 +30,11 @@
 
 `ConfigPage` [Class]
 
+###Requires
+
+	import util.inc as inc
+	import os
+
 ###Parameters:
 
 - `loc [Object]` Passed in as `os.path.abspath(__file__)`, to get name of parent directory
@@ -37,7 +42,7 @@
 ###Properties:
 
 - `name [String]` pageName of the directory within `/src/pages/nageName`.  Based on `loc` parameter. 
-- html [Dict] 
+- `html [Dict]` 
 	- `location [String]` The location of the HTML file. Example: `/src/pages/pageName/html/fileName.html`.
 	- `source [String]` The content of the file
 - `head [Dict]`
@@ -72,8 +77,13 @@
 
 #controllerPage.py
 
-
 `ConfigPage` [Class]
+
+###Requires
+
+	import util.inc as inc
+	import pystache
+	import os
 
 ###Parameters:
 

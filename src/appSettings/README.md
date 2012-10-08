@@ -1,6 +1,39 @@
 #config.py
 
-Build time config that extends `util.configRoot`.  Accepts `profile` as its `init` parameter, and can use the `profile` object to determine the build time configuration.
+`init [Function]` build-time
+
+###Requires
+
+	import util.inc as inc
+	from util.configRoot import ConfigRoot
+
+###Parameters
+
+- `profile [String]` Accepts the current profile, as determined by `build.py`
+
+###Returns
+
+`profile [Class] extends ConfigRoot`
+
+###Usage
+
+Within the init, you create an instance of the `ConfigRoot` class, assign values to its properties, then return it.
+
+	def init(profile):
+		config = ConfigRoot()
+	
+		#import pages
+		import pages.home.config as home
+		import pages.calendar.config as calendar
+		import pages.todo.config as todo
+		
+		config.pages = {
+			'home' : home.init(profile),
+			'calendar' : calendar.init(profile),
+			'todo' : todo.init(profile)	
+		}
+		
+		return config
 
 #profileList.py
 
