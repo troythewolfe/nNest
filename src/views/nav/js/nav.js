@@ -1,1 +1,1 @@
-alert('views/nav/nav.js');
+console.log('views/nav/nav.js');

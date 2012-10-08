@@ -11,14 +11,20 @@ sys.path.append('/')
 class Build():
 	def __init__(self):
 		#empty generated dirs
-		shutil.rmtree('indexes')
-		os.mkdir('indexes')
+		indexDir = 'indexes'
+		if os.path.isdir(indexDir):
+			shutil.rmtree(indexDir)
+		os.mkdir(indexDir)
 
-		shutil.rmtree('static/js')
-		os.mkdir('static/js')
+		jsDir = 'static/js'
+		if os.path.isdir(jsDir):
+			shutil.rmtree(jsDir)
+		os.mkdir(jsDir)
 
-		shutil.rmtree('static/css')
-		os.mkdir('static/css')
+		cssDir = 'static/css'
+		if os.path.isdir(cssDir):
+			shutil.rmtree(cssDir)
+		os.mkdir(cssDir)
 
 		#get registered profiles
 		self.profiles = profileList.init()
@@ -74,10 +80,20 @@ class Build():
 		if hasattr(pageConfig, 'name'):
 			self.pageName = copy.copy(pageConfig.name)
 
-	def applyViewConfigs(self, views):
-		#if 'jsInc' in views['']:
-		#print views
-		return False
+		if hasattr(pageConfig, 'views'):
+			for nestedView in pageConfig.views:
+						self.applyViewConfigs(pageConfig.views[nestedView])
+
+	def applyViewConfigs(self, viewConfig):
+		if hasattr(viewConfig, 'jsInc'):
+			self.js.extend(copy.copy(viewConfig.jsInc))
+
+		if hasattr(viewConfig, 'cssInc'):
+			self.js.extend(copy.copy(viewConfig.cssInc))
+
+		if hasattr(viewConfig, 'views'):
+			for nestedView in viewConfig.views:
+						self.applyViewConfigs(viewConfig.views[nestedView])
 
 	#compiles local js
 	def renderJS(self):
@@ -131,7 +147,6 @@ class Build():
 		self.css.append('/' + mainCssInc)
 
 		if isinstance(content, dict):
-			print content
 			content = content['source']
 
 		#assing template variables

@@ -9,9 +9,4 @@ def init(profile):
 		config.get('js')
 	]
 
-	import views.footer.config as footer
-	config.views ={
-		'footer' : footer.init(profile)
-	}
-
 	return config
