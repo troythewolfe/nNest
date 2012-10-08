@@ -1,7 +1,5 @@
 #config.py
 
-Build time config that extends `util.configRoot`.
-
 `init [Function]` build-time
 
 ###Requires
