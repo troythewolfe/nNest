@@ -1,13 +1,13 @@
-def init(profiles, ua, request, pathParams={}):                              
+def init(ua, request, pathParams={}):                              
 	#default
-	profileName = profiles['modernWeb']
+	profileName = 'modernWeb'
 	
 	#legacyWeb
 	if ua['user_agent']['family'] == "IE" and float(ua['user_agent']['major']) <= 7:
-		profileName = profiles['legacyWeb']
+		profileName = 'legacyWeb'
 		
 	#chromeWeb
 	if ua['user_agent']['family'] == "Chrome":
-		profileName = profiles['chromeWeb']
+		profileName = 'chromeWeb'
 
 	return profileName

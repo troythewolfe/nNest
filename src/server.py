@@ -4,6 +4,9 @@ import appSettings.profileParser as profileParser
 import appSettings.profileList as profileList
 from ua_parser import user_agent_parser
 
+SERVER_NAME = '127.0.0.1'
+SERVER_PORT = 5000
+
 #create flask app object
 app = Flask(__name__, static_path='/static')
 
@@ -16,7 +19,7 @@ def processPage(page, pathParams={}):
 	ua = user_agent_parser.Parse(uaString)
 
 	#determine current profileName
-	profileName = profileParser.init(profiles, ua, request, pathParams)
+	profileName = profileParser.init(ua, request, pathParams)
 
 	#set profile object
 	profile = {
@@ -33,4 +36,4 @@ def processPage(page, pathParams={}):
 router.init(app, processPage)
 
 if __name__ == '__main__':
-    app.run()
+    app.run(SERVER_NAME, SERVER_PORT)

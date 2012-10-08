@@ -6,7 +6,6 @@ class Page():
   def __init__(self, profile, loc):
 		self.profile = profile
 		self.name = os.path.split(os.path.dirname(loc))[1]
-		print self.name
   
   def render(self, content):
 		if type(content) is dict:

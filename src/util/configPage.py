@@ -5,7 +5,7 @@ import os
 class ConfigPage():
 	def __init__(self, loc):
 		self.name = os.path.split(os.path.dirname(loc))[1]
-		self.html = ''
+		self.html = {}
 		self.head = {
 			  'title' : self.name
 		}
