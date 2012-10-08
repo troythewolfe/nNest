@@ -5,7 +5,7 @@ import os
 def init(profile):
 	config = ConfigPage(os.path.abspath(__file__))
 
-	config.html = config.set('html')
+	config.html = config.get('html')
 
 	#config.jsInc =[
 	#	config.set('js')

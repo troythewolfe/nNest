@@ -10,4 +10,4 @@ def init(profile):
 	}
 
 	# returns populated view html string
-	return view.render(view.set('html')['source'], viewContent)
+	return view.render(view.get('html')['source'], viewContent)

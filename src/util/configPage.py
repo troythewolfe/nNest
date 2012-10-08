@@ -12,10 +12,7 @@ class ConfigPage():
 		self.jsInc = {}
 		self.cssInc = {}
 
-	# set(ext, name)
-	# key: 'html', 'js', or 'css' 
-	# name[False]: name of file, or blank will look for page/view name + extension
-	def set(self, ext, name=False):
+	def get(self, ext, name=False):
 		if name == False:
 			name = self.name
 

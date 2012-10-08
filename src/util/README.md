@@ -63,7 +63,7 @@
 
 ###Methods:
 
-`set [Function]` Sets `html`, `js` and `css` files as class property values.
+`get [Function]` Gets `html`, `js` and `css` file object.
 
 ####Parameters:
 
@@ -107,7 +107,85 @@
 
 #controllerView.py
 
+`ControllerView` [Class]
+
+###Requires
+
+	import util.inc as inc
+	import pystache
+	import os
+
+###Parameters:
+
+- `profile [Dict]` The profile object as defined in `server.py` 
+- `loc [Object]` Passed in as `os.path.abspath(__file__)`, to get name of parent directory
+
+###Properties:
+- `profile [Dict]` Set to `self.profile` based on the `profile` parameter
+- `name [String]` The name of the parent directory, based `loc` parameter
+
+###Methods:
+
+`get [Function]`
+
+####Parameters:
+
+`ext [String]` Type of file to retrieve
+`name [String] optional` Object corresponds to HTML template tags
+
+`render [Function]`
+
+####Parameters:
+
+`template [String]` HTML template
+`content [Dict]` Object corresponds to HTML template tags
+
 #inc.py
+
+`inc [Dict of methods]`
+
+###Dependencies
+
+	import sys
+	sys.path.append('/')
+
+The path values for the various assets are hard coded in this file
+
+	jsPath = 'js/'
+	cssPath = 'css/'
+	htmlPath = 'html/'
+	viewPath = 'views/'
+	pagePath = 'pages/'
+	indexPath = 'indexes/'
+
+###Methods
+
+`js [Function]` Fetches js files
+
+####Parameters
+
+- `fileName [String]` Name of the file to get, without the extension.  Example: '`homeHelpers`'
+- `type [String]` Type of file to get. Accepts: `'page'` or `'view'`
+- `name [String]` Name of `page` or `view`. Example: `'nav'` or '`home`'
+
+`css [Function]` Fetches css files
+
+####Parameters
+
+See `js`
+
+`html [Function]` Fetches html files
+
+####Parameters
+
+See `js`
+
+`index [Function]`
+
+####Parameters
+
+	- `page [String]` The name of a page
+	- `profile [String]` The name of a profile
 
 
 

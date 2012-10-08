@@ -7,7 +7,7 @@ class View():
 		self.profile = profile
 		self.name = os.path.split(os.path.dirname(loc))[1]
 
-	def set(self, ext, name=False):
+	def get(self, ext, name=False):
 		if name == False:
 			name = self.name
 
