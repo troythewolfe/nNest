@@ -7,7 +7,9 @@ def init(app, processPage):
 
 	@app.route('/calendar/')
 	def calendar():
+		print 'cal1'
 		import pages.calendar.controller as page
+		print 'cal12'
 		return processPage(page)
 		
 	@app.route('/calendar/<year>/<month>/<day>/')

@@ -1,13 +1,14 @@
-<<<<<<< HEAD
 from util.controllerPage import Page
-=======
-<<<<<<< HEAD
-from util.pageController import Page
-=======
-from util.controllerPage import Page
->>>>>>> added controller and config base objects
->>>>>>> f7dc2741760f4abb8096e40ea28c0c9e55643cd2
-page = Page()
 
-def init(route):
-	return page.render('calendar')
+def init(profile):
+	page = Page(profile, 'calendar')
+
+	pageContent = {
+		'title' : 'Calendar Page', 
+		'content' : 'here is some home page content'
+	}
+
+	if profile['name'] == 'chromeWeb':
+		pageContent['title'] = 'Chrome Calendar Page'
+
+	return page.render(pageContent)

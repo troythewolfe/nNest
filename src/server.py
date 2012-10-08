@@ -16,7 +16,7 @@ def processPage(page, pathParams={}):
 	ua = user_agent_parser.Parse(uaString)
 
 	#determine current profileName
-	profileName = profileParser.init(profiles, ua, request, pathParams={})
+	profileName = profileParser.init(profiles, ua, request, pathParams)
 
 	#set profile object
 	profile = {

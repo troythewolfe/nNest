@@ -9,26 +9,24 @@ def init(profile):
 	import pages.home.config as home
 	import pages.calendar.config as calendar
 	import pages.todo.config as todo
-
-	#import global views
-	import views.nav.config as nav
-
-	#profile based config
-	pageTitle = 'here is the default page title'
-
-	if profile == 'chromeWeb':
-		pageTitle = 'chrome page title' 
-
-	#config object
+	
 	config.pages = {
 		'home' : home.init(profile),
 		'calendar' : calendar.init(profile),
 		'todo' : todo.init(profile)	
 	}
 
+	#import global views
+	import views.nav.config as nav
 	config.views = {
 		'nav' : nav.init(profile)	
 	}
+
+	#html <title>
+	pageTitle = 'here is the default page title'
+
+	if profile == 'chromeWeb':
+		pageTitle = 'chrome default page title'
 
 	config.head = {
 			'title' : pageTitle
