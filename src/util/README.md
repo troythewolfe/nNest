@@ -42,7 +42,7 @@
 ###Properties:
 
 - `name [String]` pageName of the directory within `/src/pages/nageName`.  Based on `loc` parameter. 
-- html [Dict] 
+- `html [Dict]` 
 	- `location [String]` The location of the HTML file. Example: `/src/pages/pageName/html/fileName.html`.
 	- `source [String]` The content of the file
 - `head [Dict]`
