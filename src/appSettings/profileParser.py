@@ -1,5 +1,4 @@
 import profileList
-from util.profile import Profile
 from ua_parser import user_agent_parser
 
 def init(request, pathParams={}):
