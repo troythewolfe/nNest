@@ -200,8 +200,8 @@ See `js`
 
 **Parameters**
 
-	- `page [String]` The name of a page
-	- `profile [String]` The name of a profile
+- `page [String]` The name of a page
+- `profile [String]` The name of a profile
 
 
 
