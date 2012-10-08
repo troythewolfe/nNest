@@ -1,0 +1,1 @@
+alert('views/nav/nav.js');

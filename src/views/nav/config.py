@@ -1,14 +1,12 @@
 import util.inc as inc
+from util.configView import ConfigView
+import os
 
 def init(profile):
-	viewName = 'nav'
+	config = ConfigView(os.path.abspath(__file__))
 
-	return {
-		'viewName' : viewName,
-		'jsInc' : [
-			inc.js('models/nav', 'view', viewName)
-		],
-		'cssInc' : [
-			inc.css('nav', 'view', viewName)
-		],
-	}
+	config.jsInc =[
+		config.get('js')
+	]
+
+	return config

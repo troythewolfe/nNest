@@ -15,7 +15,7 @@ This directory contains web pages.  A page is composed of:
 
 ###css, html & js
 
-These folders contain the asset snippets for the view.  The Page.get method will, by default, look for a file with name of the page within each of these folders.
+These folders contain the asset snippets for the page.  The Page.get method will, by default, look for a file with name of the page within each of these folders.
 
 For example:
 	
@@ -23,7 +23,7 @@ For example:
 
 ###lang
 
-View specific language files
+Page specific language files
 
 ###config.py
 
