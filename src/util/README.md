@@ -30,6 +30,11 @@
 
 `ConfigPage` [Class]
 
+###Requires
+
+	import util.inc as inc
+	import os
+
 ###Parameters:
 
 - `loc [Object]` Passed in as `os.path.abspath(__file__)`, to get name of parent directory
@@ -72,8 +77,13 @@
 
 #controllerPage.py
 
-
 `ConfigPage` [Class]
+
+###Requires
+
+	import util.inc as inc
+	import pystache
+	import os
 
 ###Parameters:
 
