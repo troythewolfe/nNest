@@ -63,9 +63,11 @@
 
 ###Methods:
 
+####get
+
 `get [Function]` Gets `html`, `js` and `css` file object.
 
-####Parameters:
+**Parameters**
 
 - `ext [String]` The type of property you want to set. Example `'html'` or `'js'`
 - `name [String] optional, default=False` The name of the file to set. If it is not set, it looks for a file with same name as the page.
@@ -96,9 +98,11 @@
 
 ###Methods:
 
+####render
+
 `render [Function]`
 
-####Parameters:
+**Parameters**
 
 `content [Dict || String]` 
 
@@ -126,16 +130,20 @@
 
 ###Methods:
 
+####get
+
 `get [Function]`
 
-####Parameters:
+**Parameters**
 
 `ext [String]` Type of file to retrieve
 `name [String] optional` Object corresponds to HTML template tags
 
+####render
+
 `render [Function]`
 
-####Parameters:
+**Parameters**
 
 `template [String]` HTML template
 `content [Dict]` Object corresponds to HTML template tags
@@ -164,7 +172,7 @@ The path values for the various assets are hard coded in this file
 
 `js [Function]` Fetches js files
 
-#####Parameters
+**Parameters**
 
 - `fileName [String]` Name of the file to get, without the extension.  Example: '`homeHelpers`'
 - `type [String]` Type of file to get. Accepts: `'page'` or `'view'`
@@ -174,7 +182,7 @@ The path values for the various assets are hard coded in this file
 
 `css [Function]` Fetches css files
 
-#####Parameters
+**Parameters**
 
 See `js`
 
@@ -182,7 +190,7 @@ See `js`
 
 `html [Function]` Fetches html files
 
-#####Parameters
+**Parameters**
 
 See `js`
 
@@ -190,7 +198,7 @@ See `js`
 
 `index [Function]`
 
-#####Parameters
+**Parameters**
 
 	- `page [String]` The name of a page
 	- `profile [String]` The name of a profile
