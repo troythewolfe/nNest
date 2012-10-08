@@ -43,4 +43,3 @@ Config.py files control build time behavior, and Controller.py files control run
 ###Misc
 * Make view and page name auto populate, but smarter so they can be nested (pages/ajax/pageName)
 * make framework installable: http://stackoverflow.com/questions/5360873/how-do-i-package-a-python-application-to-make-it-pip-installable
-* Adjust all configs to populate from base classes (root, page and view)
