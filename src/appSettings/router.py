@@ -1,4 +1,4 @@
-def init(app, request, processPage):
+def init(app, processPage):
 	#app pages
 	@app.route('/')
 	def home():
