@@ -23,7 +23,9 @@ def init(app, processPage):
 	
 	@app.route('/todo/')
 	def todo():
+		print 'before todo'
 		import pages.todo.controller as page
+		print 'after todo'
 		return processPage(page)
 	
 	#system pages

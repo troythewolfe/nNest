@@ -1,7 +1,8 @@
 from util.controllerPage import Page
+import os
 
 def init(profile):
-	page = Page(profile, 'home')
+	page = Page(profile, os.path.abspath(__file__))
 
 	pageContent = {
 		'title' : 'Home Page',

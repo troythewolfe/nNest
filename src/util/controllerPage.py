@@ -1,11 +1,16 @@
 import util.inc as inc
 import pystache
+import os
 
 class Page():
-  def __init__(self, profile, pageName):
+  def __init__(self, profile, loc):
 		self.profile = profile
-		self.pageName = pageName
+		self.name = os.path.split(os.path.dirname(loc))[1]
+		print self.name
   
   def render(self, content):
-		self.baseTemplate = inc.index(self.pageName, self.profile['name'])
-		return pystache.render(self.baseTemplate['source'], content)
+		if type(content) is dict:
+			self.baseTemplate = inc.index(self.name, self.profile['name'])
+			return pystache.render(self.baseTemplate['source'], content)
+		else:
+			return content

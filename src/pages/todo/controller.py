@@ -1,10 +1,6 @@
-<<<<<<< HEAD
 from util.controllerPage import Page
-page = Page()
-=======
-from util.controllerPage import View
-view = View()
->>>>>>> f7dc2741760f4abb8096e40ea28c0c9e55643cd2
+import os
 
-def init(route):
-	return view.render('nav content')
+def init(profile):
+	page = Page(profile, os.path.abspath(__file__))
+	return page.render('nav content')
