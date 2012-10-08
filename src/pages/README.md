@@ -39,11 +39,11 @@ Used at build-time.
 
 ####Properties
 
-	- `profile [Object]` The profile object as defined in `server.py`
+- `profile [Object]` The profile object as defined in `server.py`
 
 ####Returns
 
-	- `[ConfigPage]`
+- `[ConfigPage]`
 
 ####Usage
 
@@ -73,11 +73,11 @@ Used at run-time.
 
 ####Properties
 
-	- `profile [Object]` The profile object as defined in `server.py`
+- `profile [Object]` The profile object as defined in `server.py`
 
 ####Returns
 
-	- `[String]` The rendered page content
+- `[String]` The rendered page content
 
 ####Usage
 
