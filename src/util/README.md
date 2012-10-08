@@ -160,29 +160,29 @@ The path values for the various assets are hard coded in this file
 
 ###Methods
 
-`js [Function]` Fetches js files
+**`js [Function]` Fetches js files**
 
-####Parameters
+**Parameters**
 
 - `fileName [String]` Name of the file to get, without the extension.  Example: '`homeHelpers`'
 - `type [String]` Type of file to get. Accepts: `'page'` or `'view'`
 - `name [String]` Name of `page` or `view`. Example: `'nav'` or '`home`'
 
-`css [Function]` Fetches css files
+**`css [Function]` Fetches css files**
 
-####Parameters
-
-See `js`
-
-`html [Function]` Fetches html files
-
-####Parameters
+**Parameters**
 
 See `js`
 
-`index [Function]`
+**`html [Function]` Fetches html files**
 
-####Parameters
+**Parameters**
+
+See `js`
+
+**`index [Function]`**
+
+**Parameters**
 
 	- `page [String]` The name of a page
 	- `profile [String]` The name of a profile
