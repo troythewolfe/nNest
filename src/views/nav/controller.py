@@ -1,5 +1,4 @@
 from util.controllerView import View
-import util.inc as inc
 import os
 
 def init(profile):
