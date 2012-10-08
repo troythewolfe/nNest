@@ -131,7 +131,8 @@ class Build():
 		self.css.append('/' + mainCssInc)
 
 		if isinstance(content, dict):
-		   content = content['source']
+			print content
+			content = content['source']
 
 		#assing template variables
 		templateContent = {

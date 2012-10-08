@@ -1,18 +1,14 @@
-<<<<<<< HEAD
 from util.controllerView import View
-View = View()
+import util.inc as inc
+import os
 
-def init(route):
-	return View.render('calendar')
-=======
-<<<<<<< HEAD
-def init():
-	return "run time view html"
-=======
-from util.controllerView import View
-View = View()
+def init(profile):
+	view = View(profile, os.path.abspath(__file__))
 
-def init(route):
-	return View.render('calendar')
->>>>>>> added controller and config base objects
->>>>>>> f7dc2741760f4abb8096e40ea28c0c9e55643cd2
+	# run-time generated content
+	viewContent = {
+		'navItems' : 'Some more content!'
+	}
+
+	# returns populated view html string
+	return view.render(view.set('html')['source'], viewContent)

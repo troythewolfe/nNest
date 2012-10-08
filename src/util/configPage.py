@@ -1,5 +1,4 @@
 import util.inc as inc
-import copy
 import os
 
 class ConfigPage():

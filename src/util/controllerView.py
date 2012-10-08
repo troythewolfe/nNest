@@ -1,13 +1,18 @@
 import util.inc as inc
 import pystache
+import os
 
 class View():
-  def __init__(self, profile, viewName):
+	def __init__(self, profile, loc):
 		self.profile = profile
-		self.viewName = viewName
-  
-  def render(self, content):
-		#self.baseTemplate = inc.index(self.pageName, self.profile['name'])
-		
-		#return pystache.render(self.baseTemplate['source'], content)
-		return content
+		self.name = os.path.split(os.path.dirname(loc))[1]
+
+	def set(self, ext, name=False):
+		if name == False:
+			name = self.name
+
+		if ext == 'html':
+			return inc.html(self.name, 'view', name)
+
+	def render(self, template, content):
+		return pystache.render(template, content)
