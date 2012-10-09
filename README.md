@@ -34,10 +34,8 @@ Config.py files control build time behavior, and Controller.py files control run
 * add cache breaking mechanism to generated files
 
 ###Build process
-* make build not break when generated directories start out empty
 * In build process, have a flag to include html templates as js obj
 * Add build process watcher to run build.py
-* Bring nested view includes into index
 * Make build process adaptable to both index and ajax approaches
 
 ###Misc
