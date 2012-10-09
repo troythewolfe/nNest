@@ -1,9 +1,9 @@
 def init():	
 	#register profiles
-	profiles = {
-		'modernWeb' : 'modernWeb',
-		'legacyWeb' : 'legacyWeb',
-		'chromeWeb' : 'chromeWeb' 
-	}
+	profiles = [
+		'modernWeb',
+		'legacyWeb',
+		'chromeWeb' 
+	]
 
 	return profiles

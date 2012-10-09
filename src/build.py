@@ -8,8 +8,6 @@ import os
 import sys
 sys.path.append('/')
 
-print inc.lang('en')
-
 class Build():
 	def __init__(self):
 		#empty generated dirs
