@@ -1,3 +1,5 @@
+import json
+from pprint import pprint
 import sys
 sys.path.append('/')
 
@@ -7,6 +9,7 @@ htmlPath = 'html/'
 viewPath = 'views/'
 pagePath = 'pages/'
 indexPath = 'indexes/'
+langlPath = 'lang/'
 
 def js(fileName, type='', name=''):
 	ext = 'js'
@@ -72,10 +75,25 @@ def index(page, profile):
 	ext = 'html'
 
 	filePath = indexPath + profile + '-' + page + '.' + ext
-
+               
 	htmlFile = {
 		'location' : filePath,
 		'source' : open(filePath).read()
 	}
 
 	return htmlFile
+
+def lang(fileName, type='', name=''):
+	ext = 'json'
+
+	localLangPath = langlPath
+
+	if type == 'view':
+		localLangPath = viewPath + name + '/' + langlPath
+
+	if type == 'page':
+		localLangPath = pagePath + name + '/' + langlPath
+
+	filePath = localLangPath + fileName + '.' + ext
+
+	return json.load(open(filePath))

@@ -194,6 +194,14 @@ See `js`
 
 See `js`
 
+####lang
+
+`lang [Function]` Fetches lang (json) files
+
+**Parameters**
+
+See `js`
+
 ####index
 
 `index [Function]`
