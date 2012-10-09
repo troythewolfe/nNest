@@ -26,8 +26,11 @@ def processPage(page, pathParams={}):
 		'name' : profileName,
 		'ua' : ua,
 		'path' : request.path,
-		'pathParams' : pathParams
+		'pathParams' : pathParams,
+		'lang' : request.headers.get('Accept-Language')
 	}
+
+	#print profile
 
 	#get page html
 	return page.init(profile)

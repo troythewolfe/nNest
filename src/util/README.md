@@ -104,10 +104,10 @@
 
 **Parameters**
 
-`content [Dict || String]` 
+- `content [Dict || String]` 
 
-- If `[Dict]` It will assume it corresponds to the template tags within the page index, populate it and return it as a string.  
-- if `[String]` It will return the string only.
+	- If `[Dict]` It will assume it corresponds to the template tags within the page index, populate it and return it as a string.  
+	- if `[String]` It will return the string only.
 
 #controllerView.py
 
