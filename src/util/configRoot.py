@@ -6,6 +6,7 @@ class ConfigRoot():
 			'title' : ''
 		}
 		self.baseTemplate = ''
-		self.jsInc = {}
-		self.cssInc = {}
+		self.jsInc = []
+		self.cssInc = []
+		self.htmlInc = []
 		

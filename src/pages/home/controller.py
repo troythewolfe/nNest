@@ -2,8 +2,7 @@ from util.controllerPage import Page
 import os
 
 def init(profile):
-	page = Page(profile,
-)
+	page = Page(profile, os.path.abspath(__file__))
 
 	#import views
 	import views.nav.controller as nav

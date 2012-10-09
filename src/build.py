@@ -6,7 +6,10 @@ import copy
 import shutil
 import os
 import sys
+import re
 sys.path.append('/')
+
+HTML_TEMPLATES_NAMESPACE = 'templates'
 
 class Build():
 	def __init__(self):
@@ -43,6 +46,7 @@ class Build():
 				self.baseTemplate = copy.copy(self.config.baseTemplate)
 				self.js = copy.copy(self.config.jsInc)
 				self.css = copy.copy(self.config.cssInc)
+				self.htmlTemplates = copy.copy(self.config.htmlInc)
 				self.views = copy.copy(self.config.views)
 				self.head = {
 					'title' : copy.copy(self.config.head['title'])
@@ -73,6 +77,9 @@ class Build():
 
 		if hasattr(pageConfig, 'cssInc'):
 			self.js.extend(copy.copy(pageConfig.cssInc))
+
+		if hasattr(pageConfig, 'htmlInc'):
+			self.htmlTemplates.extend(copy.copy(pageConfig.htmlInc))
 		
 		if hasattr(pageConfig, 'html'):
 			self.pageTemplate = copy.copy(pageConfig.html)
@@ -91,9 +98,40 @@ class Build():
 		if hasattr(viewConfig, 'cssInc'):
 			self.js.extend(copy.copy(viewConfig.cssInc))
 
+		if hasattr(viewConfig, 'htmlInc'):
+			self.htmlTemplates.extend(copy.copy(viewConfig.htmlInc))
+
 		if hasattr(viewConfig, 'views'):
 			for nestedView in viewConfig.views:
 				self.applyViewConfigs(viewConfig.views[nestedView])
+
+	#render htmlInc into js html templates
+	def renderTemplates(self):
+		#set up base string/namespace
+		templatePrepend = 'window.' + HTML_TEMPLATES_NAMESPACE
+		templateString = templatePrepend + ' = {};\n'
+
+		typePrepend = {}
+		typeOutputPrepend = {}
+
+		#loop over to determine html/folders and types
+		templateTypes = {}
+		for htmlTemplate in self.htmlTemplates:
+			templateTypes[htmlTemplate['type']] = {}
+		
+		for type in templateTypes:
+			templateString += templatePrepend + '.' + type + ' = {};\n'
+			for htmlTemplate in self.htmlTemplates:
+				if htmlTemplate['type'] == type: 
+					templateString += templatePrepend + '.' + type + '.'  + htmlTemplate['typeName'] + ' = {};\n'
+					templateTypes[type][htmlTemplate['typeName']] = templatePrepend + '.' + type + '.' + htmlTemplate['typeName']
+
+		for htmlTemplate in self.htmlTemplates:
+			strippedSource = htmlTemplate['source'].replace('\n', '')
+			strippedSource = strippedSource.replace('"', '\\"')
+			templateString += templateTypes[htmlTemplate['type']][htmlTemplate['typeName']] + '.' + htmlTemplate['name'] + ' = "' + strippedSource + '";\n'
+
+		return templateString
 
 	#compiles local js
 	def renderJS(self):
@@ -102,7 +140,9 @@ class Build():
 		for jsFile in self.js:
 			if isinstance(jsFile, dict):
 				jsInc += jsFile['source'] + '\n'
-	
+		
+		jsInc += self.renderTemplates()
+
 		return jsInc
 
 	#puts all external js files into an object
@@ -111,7 +151,7 @@ class Build():
 		for jsFile in self.js:
 			if not isinstance(jsFile, dict):
 				externalJsInc.append({ 'url' : jsFile })
-	
+
 		return externalJsInc
 
 	def renderCSS(self):

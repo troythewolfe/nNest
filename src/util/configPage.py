@@ -9,10 +9,11 @@ class ConfigPage():
 			  'title' : self.name
 		}
 		self.views = {}
-		self.jsInc = {}
-		self.cssInc = {}
+		self.jsInc = []
+		self.cssInc = []
+		self.htmlInc = []
 
-	def get(self, ext, name=False):
+	def get(self, ext, name=False, loc=False):
 		if name == False:
 			name = self.name
 
@@ -21,3 +22,18 @@ class ConfigPage():
 
 		if ext == 'js':
 			return inc.js(self.name, 'page', name)
+
+		if ext == 'template':
+			if loc == False:
+				htmlItem = inc.html(name, 'page', self.name)
+				htmlItem['name'] = name
+				htmlItem['type'] = 'page'
+				htmlItem['typeName'] = self.name
+				return htmlItem
+			else:
+				htmlName = loc + '/' + name
+				htmlItem = inc.html(htmlName)
+				htmlItem['name'] = name
+				htmlItem['type'] = 'html'
+				htmlItem['typeName'] = loc
+				return htmlItem

@@ -12,6 +12,7 @@ app = Flask(__name__, static_path='/static')
 #passed into router init and used there
 #defined here to keep noise out of configurable file
 def processPage(page, pathParams={}):
+
 	#parse user agent string
 	ua = user_agent_parser.Parse(request.headers.get('User-Agent'))
 
