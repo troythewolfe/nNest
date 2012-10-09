@@ -182,7 +182,7 @@ Parameters
 
 Returns
 
-`[`Dict`]`
+`[Dict]`
 
 - `location [String]` Location of file
 - `source [String]` Contents of file
