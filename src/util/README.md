@@ -136,8 +136,8 @@
 
 **Parameters**
 
-`ext [String]` Type of file to retrieve
-`name [String] optional` Object corresponds to HTML template tags
+- `ext [String]` Type of file to retrieve
+- `name [String] optional` Object corresponds to HTML template tags
 
 ####render
 
