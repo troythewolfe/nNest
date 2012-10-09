@@ -180,11 +180,22 @@ Parameters
 - `type [String] optional` Type of file to get. Accepts: `'page'` or `'view'`
 - `name [String] optional` Name of `page` or `view`. Example: `'nav'` or '`home`'
 
+Returns
+
+`[`Dict`]`
+
+- `location [String]` Location of file
+- `source [String]` Contents of file
+
 ####css
 
 `css [Function]` Fetches css files
 
 Parameters
+
+- See `js`
+
+Returns
 
 - See `js`
 
@@ -196,6 +207,10 @@ Parameters
 
 - See `js`
 
+Returns
+
+- See `js`
+
 ####lang
 
 `lang [Function]` Fetches lang (json) files
@@ -203,6 +218,10 @@ Parameters
 Parameters
 
 See `js`
+
+Returns
+
+- See `js`
 
 ####index
 
@@ -212,3 +231,7 @@ Parameters
 
 - `page [String]` The name of a page
 - `profile [String]` The name of a profile
+
+Returns
+
+- See `js`
