@@ -13,6 +13,12 @@ class ConfigView():
 		if name == False:
 			name = self.name
 
+		if ext == 'html':
+			return inc.html(name, 'view', self.name)
+
+		if ext == 'css':
+			return inc.css(name, 'view', self.name)
+
 		if ext == 'js':
 			return inc.js(name, 'view', self.name)
 

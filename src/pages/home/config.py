@@ -11,7 +11,7 @@ def init(profile):
 		config.get('js')
 	]
 
-	config.htmlInc =[
+	config.templates =[
 		config.get('template', 'homeSnippet')
 	]
 

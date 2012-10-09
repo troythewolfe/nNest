@@ -18,10 +18,13 @@ class ConfigPage():
 			name = self.name
 
 		if ext == 'html':
-			return inc.html(self.name, 'page', name)
+			return inc.html(name, 'page', self.name)
 
 		if ext == 'js':
-			return inc.js(self.name, 'page', name)
+			return inc.js(name, 'page', self.name)
+
+		if ext == 'css':
+			return inc.css(name, 'page', self.name)
 
 		if ext == 'template':
 			if loc == False:

@@ -1,12 +1,11 @@
 class ConfigRoot():
-  def __init__(self):
+	def __init__(self):
 		self.pages = {}
 		self.views = {}
 		self.head = {
 			'title' : ''
 		}
-		self.baseTemplate = ''
+		self.baseTemplate = 'base'
 		self.jsInc = []
 		self.cssInc = []
-		self.htmlInc = []
-		
+		self.templates = []

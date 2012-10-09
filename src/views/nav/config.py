@@ -10,7 +10,7 @@ def init(profile):
 		config.get('js')
 	]
 
-	config.htmlInc = [
+	config.templates = [
 		config.get('template', 'navItem'),
 		config.get('template', 'listItem', 'shared'),
 		config.get('template', 'listItem1', 'shared'),

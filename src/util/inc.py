@@ -70,6 +70,22 @@ def html(fileName, type='', name=''):
 
 	return htmlFile
 
+
+def template(fileName, name):
+	templateExt = 'html'	
+
+	filePath = htmlPath + name + '/' + fileName + '.' + templateExt
+
+	htmlFile = {
+		'location' : filePath,
+		'source' : open(filePath).read(),
+		'name' : fileName,
+		'type' : 'html',
+		'typeName' : name
+	}
+
+	return htmlFile
+
 def index(page, profile):
 	ext = 'html'
 

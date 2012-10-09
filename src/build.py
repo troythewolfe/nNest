@@ -32,13 +32,33 @@ class Build():
 		#get registered profiles
 		self.profiles = profileList.init()
 
+		#build global includes
+		self.globalInc = config.globalInc()
+
+		#print self.globalInc.jsInc
+
+		self.globals = {}
+		self.globals['js'] = copy.copy(self.globalInc.jsInc)
+		self.globals['css'] = copy.copy(self.globalInc.cssInc)
+		self.globals['htmlTemplates'] = copy.copy(self.globalInc.templates)
+
+		globalJsInc = 'static/js/global.js'
+		jsFile = open(globalJsInc, 'w+')
+		jsFile.write(self.renderJS(self.globals['js'], self.globals['htmlTemplates']))
+		self.js = ['/' + globalJsInc]
+
+		mainCssInc = 'static/css/global.css'
+		cssFile = open(mainCssInc, 'w+')
+		cssFile.write(self.renderCSS(self.globals['css']))
+		self.css = ['/' + mainCssInc]
+
 		#loop over each profile
 		for profile in self.profiles:
 			#set the current profile
 			self.profile = profile
 
 			#init the config based on current profile
-			self.config = config.init(self.profile)
+			self.config = config.profile(self.profile)
 
 			#loop over each page listed in config
 			for pageConfig in self.config.pages:
@@ -46,7 +66,7 @@ class Build():
 				self.baseTemplate = copy.copy(self.config.baseTemplate)
 				self.js = copy.copy(self.config.jsInc)
 				self.css = copy.copy(self.config.cssInc)
-				self.htmlTemplates = copy.copy(self.config.htmlInc)
+				self.htmlTemplates = copy.copy(self.config.templates)
 				self.views = copy.copy(self.config.views)
 				self.head = {
 					'title' : copy.copy(self.config.head['title'])
@@ -78,8 +98,8 @@ class Build():
 		if hasattr(pageConfig, 'cssInc'):
 			self.js.extend(copy.copy(pageConfig.cssInc))
 
-		if hasattr(pageConfig, 'htmlInc'):
-			self.htmlTemplates.extend(copy.copy(pageConfig.htmlInc))
+		if hasattr(pageConfig, 'templates'):
+			self.htmlTemplates.extend(copy.copy(pageConfig.templates))
 		
 		if hasattr(pageConfig, 'html'):
 			self.pageTemplate = copy.copy(pageConfig.html)
@@ -98,15 +118,17 @@ class Build():
 		if hasattr(viewConfig, 'cssInc'):
 			self.js.extend(copy.copy(viewConfig.cssInc))
 
-		if hasattr(viewConfig, 'htmlInc'):
-			self.htmlTemplates.extend(copy.copy(viewConfig.htmlInc))
+		if hasattr(viewConfig, 'templates'):
+			self.htmlTemplates.extend(copy.copy(viewConfig.templates))
 
 		if hasattr(viewConfig, 'views'):
 			for nestedView in viewConfig.views:
 				self.applyViewConfigs(viewConfig.views[nestedView])
 
 	#render htmlInc into js html templates
-	def renderTemplates(self):
+	def renderTemplates(self, htmlTemplates):
+		#print htmlTemplates
+
 		#set up base string/namespace
 		templatePrepend = 'window.' + HTML_TEMPLATES_NAMESPACE
 		templateString = templatePrepend + ' = {};\n'
@@ -116,32 +138,34 @@ class Build():
 
 		#loop over to determine html/folders and types
 		templateTypes = {}
-		for htmlTemplate in self.htmlTemplates:
+		for htmlTemplate in htmlTemplates:
 			templateTypes[htmlTemplate['type']] = {}
 		
 		for type in templateTypes:
 			templateString += templatePrepend + '.' + type + ' = {};\n'
-			for htmlTemplate in self.htmlTemplates:
+			for htmlTemplate in htmlTemplates:
 				if htmlTemplate['type'] == type: 
 					templateString += templatePrepend + '.' + type + '.'  + htmlTemplate['typeName'] + ' = {};\n'
 					templateTypes[type][htmlTemplate['typeName']] = templatePrepend + '.' + type + '.' + htmlTemplate['typeName']
 
-		for htmlTemplate in self.htmlTemplates:
+
+		for htmlTemplate in htmlTemplates:
 			strippedSource = htmlTemplate['source'].replace('\n', '')
 			strippedSource = strippedSource.replace('"', '\\"')
 			templateString += templateTypes[htmlTemplate['type']][htmlTemplate['typeName']] + '.' + htmlTemplate['name'] + ' = "' + strippedSource + '";\n'
+		
 
 		return templateString
 
 	#compiles local js
-	def renderJS(self):
+	def renderJS(self, jsFiles, htmlTemplates):
 		jsInc = ''
 		externalJsInc = []
-		for jsFile in self.js:
+		for jsFile in jsFiles:
 			if isinstance(jsFile, dict):
 				jsInc += jsFile['source'] + '\n'
 		
-		jsInc += self.renderTemplates()
+		jsInc += self.renderTemplates(htmlTemplates)
 
 		return jsInc
 
@@ -154,9 +178,9 @@ class Build():
 
 		return externalJsInc
 
-	def renderCSS(self):
+	def renderCSS(self, cssFiles):
 		cssInc = ''
-		for cssFile in self.css:
+		for cssFile in cssFiles:
 			if isinstance(cssFile, dict):
 				cssInc += cssFile['source'] + '\n'
 	
@@ -178,12 +202,12 @@ class Build():
 
 		mainJsInc = 'static/js/' + profilePage + '-min.js'
 		jsFile = open(mainJsInc, 'w+')
-		jsFile.write(self.renderJS())
+		jsFile.write(self.renderJS(self.js, self.htmlTemplates))
 		self.js.append('/' + mainJsInc)
 
 		mainCssInc = 'static/css/' + profilePage + '-min.css'
 		cssFile = open(mainCssInc, 'w+')
-		cssFile.write(self.renderCSS())
+		cssFile.write(self.renderCSS(self.css))
 		self.css.append('/' + mainCssInc)
 
 		if isinstance(content, dict):

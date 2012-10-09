@@ -34,10 +34,10 @@ Config.py files control build time behavior, and Controller.py files control run
 * add cache breaking mechanism to generated files
 
 ###Build process
-* In build process, have a flag to include html templates as js obj
 * Add build process watcher to run build.py
 * Make build process adaptable to both index and ajax approaches
 
 ###Misc
+* Document config get template return object
 * Make view and page name auto populate, but smarter so they can be nested (pages/ajax/pageName)
 * make framework installable: http://stackoverflow.com/questions/5360873/how-do-i-package-a-python-application-to-make-it-pip-installable

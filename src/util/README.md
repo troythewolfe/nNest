@@ -65,7 +65,7 @@
 
 ####get
 
-`get [Function]` Gets `html`, `js` and `css` file object.
+`get [Function]` Gets `html`, `js`, 'template' `css` file object.
 
 Parameters
 
