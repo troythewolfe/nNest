@@ -184,7 +184,7 @@ The path values for the various assets are hard coded in this file
 
 **Parameters**
 
-See `js`
+- See `js`
 
 ####html
 
@@ -192,7 +192,7 @@ See `js`
 
 **Parameters**
 
-See `js`
+- See `js`
 
 ####index
 
