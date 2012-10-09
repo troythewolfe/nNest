@@ -95,4 +95,9 @@ def lang(fileName, type='', name=''):
 
 	filePath = localLangPath + fileName + '.' + ext
 
-	return json.load(open(filePath))
+	langFile = {
+		'location' : filePath,
+		'source' : json.load(open(filePath))
+	}
+
+	return langFile
