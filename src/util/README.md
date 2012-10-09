@@ -166,6 +166,7 @@ The path values for the various assets are hard coded in this file
 	viewPath = 'views/'
 	pagePath = 'pages/'
 	indexPath = 'indexes/'
+	langPath = 'lang/'
 
 ###Methods
 
