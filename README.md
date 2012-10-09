@@ -1,53 +1,43 @@
-nNest
+pythonNest
 =====
 
 # UNDER CONSTRUCTION
 
-Node, express and backbone server/client app framework with a focus on code reuse between server/client and device builds.
+Python, flask and backbone app framework with a focus on putting as much responsibility on the build process as possible and code reuse between device source code.
 
-##Required modules
-* express
-* mustache
-* ua-parser
-* underscore
+##Python Dependencies
+* flask
+* httpagentparser
+* pystache
+* pyYamlg
+* ua-parser (https://github.com/tobie/ua-parser)
+* minimatic
+
+##Build:
+run src/build.py
+
+##Start Server:
+run src/server.py
 
 ##CoffeeScript cmd
-
-TODO: Grunt these tasks
-
 coffee -o lib/ -cw src/
 
 coffee -cw index.coffee
 
-##Framework Components
+##Build-time vs Run-time
+Config.py files control build time behavior, and Controller.py files control run time.
 
-###index.js
-* starts express server
-* sets up static 'public' folder
-* sets up base path listeners
-* calls buildRouter and passes client (parsed user-agent) data
-* sends the built index to the client
+##TODO
+###Cache 
+* use filecomp to check if the gen css/js files are different, and if so, add timestamp to break cache ((http://docs.python.org/library/filecmp.html)
+* seperate out global vs page level css/js so that global can be cached
+* add cache breaking mechanism to generated files
 
-###build_router.js
-The first build object that has a 'true' condition is set the current build.  This build will determine which index.html, build controller and client init file will be used to construct this app.  The build name is passed down during the build process, so individual views can construct themselves differently depending on the current build name (or specific params within the build object)
-* sets the current build object based on conditions within config.js
+###Build process
+* In build process, have a flag to include html templates as js obj
+* Add build process watcher to run build.py
+* Make build process adaptable to both index and ajax approaches
 
-###config.js
-* sets up build objects
- * build (path to specific build file for this build)
- * index (path to index template to use for this build)
- * init (path to init js file that will be sent to client for this build)
- * condition (the conditions that have to be met to use this build, generally based on the helpers/client.js object
-* sets base template properties
-* sets global js and css (if any)
-
-###helpers/client.js
-* user-agent parsing
-* returns formatted client object
-
-
-###builders/builder_name.js
-* an index builder that is assigned to one or more builds
-* retrieves views
-* retrieves and pushes css and js includes
-* constructs and returns index
+###Misc
+* Make view and page name auto populate, but smarter so they can be nested (pages/ajax/pageName)
+* make framework installable: http://stackoverflow.com/questions/5360873/how-do-i-package-a-python-application-to-make-it-pip-installable

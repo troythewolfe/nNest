@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{{title}}</title>
+  <meta name="description" content="Test HTML Template">
+  <meta name="author" content="troythewolfe">
+  
+  {{#cssInc}}
+	<link href="{{url}}" rel="stylesheet" type="text/css">
+	{{/cssInc}}
+  <!--link rel="stylesheet" href="css/styles.css?v=1.0"-->
+  <!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+<body>
+{{{bodyContent}}}
+
+{{#jsInc}}
+<script src="{{url}}" type="text/javascript"></script>
+{{/jsInc}}
+</body>
+</html>
