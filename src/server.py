@@ -30,8 +30,6 @@ def processPage(page, pathParams={}):
 		'lang' : request.headers.get('Accept-Language')
 	}
 
-	print profile['lang'][0]
-
 	#get page html
 	return page.init(profile)
 
