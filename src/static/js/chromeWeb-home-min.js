@@ -47,3 +47,4 @@ b,c){var d;d=b&&b.hasOwnProperty("constructor")?b.constructor:function(){a.apply
 console.log('views/nav/nav.js');
 
 console.log('views/footer/footer.js');
+

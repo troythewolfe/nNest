@@ -82,7 +82,7 @@ class Build():
 
 		if hasattr(pageConfig, 'views'):
 			for nestedView in pageConfig.views:
-						self.applyViewConfigs(pageConfig.views[nestedView])
+				self.applyViewConfigs(pageConfig.views[nestedView])
 
 	def applyViewConfigs(self, viewConfig):
 		if hasattr(viewConfig, 'jsInc'):
@@ -93,7 +93,7 @@ class Build():
 
 		if hasattr(viewConfig, 'views'):
 			for nestedView in viewConfig.views:
-						self.applyViewConfigs(viewConfig.views[nestedView])
+				self.applyViewConfigs(viewConfig.views[nestedView])
 
 	#compiles local js
 	def renderJS(self):
