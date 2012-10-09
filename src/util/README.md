@@ -67,7 +67,7 @@
 
 `get [Function]` Gets `html`, `js` and `css` file object.
 
-**Parameters**
+Parameters
 
 - `ext [String]` The type of property you want to set. Example `'html'` or `'js'`
 - `name [String] optional, default=False` The name of the file to set. If it is not set, it looks for a file with same name as the page.
@@ -102,7 +102,7 @@
 
 `render [Function]`
 
-**Parameters**
+Parameters
 
 - `content [Dict || String]` 
 
@@ -134,7 +134,7 @@
 
 `get [Function]`
 
-**Parameters**
+Parameters
 
 - `ext [String]` Type of file to retrieve
 - `name [String] optional` Object corresponds to HTML template tags
@@ -143,14 +143,14 @@
 
 `render [Function]`
 
-**Parameters**
+Parameters
 
 `template [String]` HTML template
 `content [Dict]` Object corresponds to HTML template tags
 
 #inc.py
 
-`inc [Dict of methods]`
+`inc [Dict][Function]`
 
 ###Dependencies
 
@@ -168,23 +168,34 @@ The path values for the various assets are hard coded in this file
 	indexPath = 'indexes/'
 	langPath = 'lang/'
 
-###Methods
+###Functions
 
 ####js
 
 `js [Function]` Fetches js files
 
-**Parameters**
+Parameters
 
 - `fileName [String]` Name of the file to get, without the extension.  Example: '`homeHelpers`'.  If this is the only parameter supplied, it will look in `src/js`
 - `type [String] optional` Type of file to get. Accepts: `'page'` or `'view'`
 - `name [String] optional` Name of `page` or `view`. Example: `'nav'` or '`home`'
 
+Returns
+
+`[`Dict`]`
+
+- `location [String]` Location of file
+- `source [String]` Contents of file
+
 ####css
 
 `css [Function]` Fetches css files
 
-**Parameters**
+Parameters
+
+- See `js`
+
+Returns
 
 - See `js`
 
@@ -192,7 +203,11 @@ The path values for the various assets are hard coded in this file
 
 `html [Function]` Fetches html files
 
-**Parameters**
+Parameters
+
+- See `js`
+
+Returns
 
 - See `js`
 
@@ -200,15 +215,23 @@ The path values for the various assets are hard coded in this file
 
 `lang [Function]` Fetches lang (json) files
 
-**Parameters**
+Parameters
 
 See `js`
+
+Returns
+
+- See `js`
 
 ####index
 
 `index [Function]`
 
-**Parameters**
+Parameters
 
 - `page [String]` The name of a page
 - `profile [String]` The name of a profile
+
+Returns
+
+- See `js`
