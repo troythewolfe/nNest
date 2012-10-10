@@ -1,5 +1,6 @@
 import util.inc as inc
-import appSettings.config as config
+import appSettings.configPageIndexes as configPageIndexes
+import appSettings.globalInc as globalInc
 import appSettings.profileList as profileList
 import pystache
 import copy
@@ -33,7 +34,7 @@ class Build():
 		self.profiles = profileList.init()
 
 		#build global includes
-		self.globalInc = config.globalInc()
+		self.globalInc = globalInc.init()
 
 		self.externalJsInc = []
 		self.globals = {}
@@ -57,7 +58,7 @@ class Build():
 			self.profile = profile
 
 			#init the config based on current profile
-			self.config = config.profile(self.profile)
+			self.config = configPageIndexes.init(self.profile)
 
 			#loop over each page listed in config
 			for pageConfig in self.config.pages:
