@@ -13,11 +13,8 @@ def globalInc():
 	]
 
 	config.cssInc = [
-		'http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css',
 		inc.css('main')
 	]
-
-	print inc.template('listItem', 'shared')
 
 	config.templates = [
 		inc.template('listItem', 'shared')
@@ -28,6 +25,10 @@ def globalInc():
 def profile(profile):
 	#create config object
 	config = ConfigRoot()
+
+	config.cssInc = [
+		'http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css'
+	]
 
 	#import pages
 	import pages.home.config as home
