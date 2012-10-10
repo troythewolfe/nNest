@@ -36,6 +36,10 @@ Config.py files control build time behavior, and Controller.py files control run
 * Add build process watcher to run build.py
 * Make build process adaptable to both index and ajax approaches
 
+###Build configs
+* Build get method for configs to use instead of inc
+* Make get methods a mixin?
+
 ###Misc
 * Document config get template return object
 * Make view and page name auto populate, but smarter so they can be nested (pages/ajax/pageName)
