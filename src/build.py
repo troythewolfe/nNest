@@ -9,7 +9,7 @@ import sys
 import re
 sys.path.append('/')
 
-HTML_TEMPLATES_NAMESPACE = 'templates'
+HTML_TEMPLATES_JS_NAMESPACE = 'templates'
 
 class Build():
 	def __init__(self):
@@ -35,8 +35,6 @@ class Build():
 		#build global includes
 		self.globalInc = config.globalInc()
 
-		#print self.globalInc.jsInc
-
 		self.externalJsInc = []
 		self.globals = {}
 		self.globals['js'] = copy.copy(self.globalInc.jsInc)
@@ -47,8 +45,6 @@ class Build():
 		jsFile = open(globalJsInc, 'w+')
 		jsFile.write(self.renderJS(self.globals['js'], self.globals['htmlTemplates']))
 		globalJsPath = '/' + globalJsInc
-	
-		print globalJsPath
 
 		mainCssInc = 'static/css/global.css'
 		cssFile = open(mainCssInc, 'w+')
@@ -67,10 +63,22 @@ class Build():
 			for pageConfig in self.config.pages:
 				#apply global config
 				self.baseTemplate = copy.copy(self.config.baseTemplate)
+				
 				self.js = []
+
+				for jsInc in self.globals['js']:
+					if not isinstance(jsInc, dict):
+						self.js.append(jsInc)
+
 				self.js.append(globalJsPath)
 				self.js.extend(copy.copy(self.config.jsInc))
+			
 				self.css = []
+
+				for cssInc in self.globals['css']:
+					if not isinstance(cssInc, dict):
+						self.css.append(cssInc)
+
 				self.css.append(globalCssPath)
 				self.css.extend(copy.copy(self.config.cssInc))
 				self.htmlTemplates = copy.copy(self.config.templates)
@@ -134,10 +142,8 @@ class Build():
 
 	#render htmlInc into js html templates
 	def renderTemplates(self, htmlTemplates):
-		#print htmlTemplates
-
 		#set up base string/namespace
-		templatePrepend = 'window.' + HTML_TEMPLATES_NAMESPACE
+		templatePrepend = 'window.' + HTML_TEMPLATES_JS_NAMESPACE
 		templateString = templatePrepend + ' = {};\n'
 
 		typePrepend = {}
@@ -235,8 +241,6 @@ class Build():
 
 		if isinstance(content, dict):
 			content = content['source']
-
-		#print self.getCSS()
 
 		#assing template variables
 		templateContent = {
