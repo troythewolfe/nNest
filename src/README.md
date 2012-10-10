@@ -1,12 +1,15 @@
 #build.py
 
-Run `python build.py` to crawl root, page and view configs.
+Runs in `server.py` and crawl root, page and view configs.
+
+Must
 
 Generates:
 
 - Index templates in `/src/indexes/`
-- Concatinated and minified css files into `/src/static/css/`
-- Concatinated and minified js files into `/src/static/js/`
+- Global js and css files into `/src/static/`
+- Concatinated and minified profile-page css files into `/src/static/css/`
+- Concatinated and minified profile-page js files into `/src/static/js/`
 
 Generated files follow the naming convention `<profile>-<page>.ext`
 

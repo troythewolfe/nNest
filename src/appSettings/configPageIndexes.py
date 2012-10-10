@@ -21,14 +21,6 @@ def init(profile):
 		'nav' : nav.init(profile)	
 	}
 
-	#html <title>
-	pageTitle = 'here is the default page title'
-
-	if profile == 'chromeWeb':
-		pageTitle = 'chrome default page title'
-
-	config.head = {
-			'title' : pageTitle
-	}
+	config.head['title'] = 'here is the default page title'
 
 	return config

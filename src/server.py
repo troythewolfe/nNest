@@ -3,6 +3,9 @@ import appSettings.router as router
 import appSettings.profileParser as profileParser
 from ua_parser import user_agent_parser
 
+#import for dev mode, remove for production
+import build
+
 SERVER_NAME = '127.0.0.1'
 SERVER_PORT = 5000
 

@@ -90,56 +90,56 @@ class Build():
 				self.pageTemplate = '{{{content}}}'
 				
 				#apply page config
-				self.applyPageConfig(self.config.pages[pageConfig])
+				self.applyPageConfig(self.config.pages[pageConfig], self)
 	
 				#apply view configs
 				if self.views:
 					for view in self.views:
-						self.applyViewConfigs(self.views[view])
+						self.applyViewConfigs(self.views[view], self)
 				
 				#render page
 				self.render(self.pageTemplate, self.pageName, self.profile)
 	
 	#overwrite defaults and add page specific configs
-	def applyPageConfig(self, pageConfig):
+	def applyPageConfig(self, pageConfig, curr):
 		if 'title' in pageConfig.head:
-			self.head['title'] = copy.copy(pageConfig.head['title'])
+			curr.head['title'] = copy.copy(pageConfig.head['title'])
 	
 		if hasattr(pageConfig, 'baseTemplate'):
-			self.baseTemplate = copy.copy(pageConfig.baseTemplate)	
+			curr.baseTemplate = copy.copy(pageConfig.baseTemplate)	
 		
 		if hasattr(pageConfig, 'jsInc'):
-			self.js.extend(copy.copy(pageConfig.jsInc))
+			curr.js.extend(copy.copy(pageConfig.jsInc))
 
 		if hasattr(pageConfig, 'cssInc'):
-			self.css.extend(copy.copy(pageConfig.cssInc))
+			curr.css.extend(copy.copy(pageConfig.cssInc))
 
 		if hasattr(pageConfig, 'templates'):
-			self.htmlTemplates.extend(copy.copy(pageConfig.templates))
+			curr.htmlTemplates.extend(copy.copy(pageConfig.templates))
 		
 		if hasattr(pageConfig, 'html'):
-			self.pageTemplate = copy.copy(pageConfig.html)
+			curr.pageTemplate = copy.copy(pageConfig.html)
 
 		if hasattr(pageConfig, 'name'):
-			self.pageName = copy.copy(pageConfig.name)
+			curr.pageName = copy.copy(pageConfig.name)
 
 		if hasattr(pageConfig, 'views'):
 			for nestedView in pageConfig.views:
-				self.applyViewConfigs(pageConfig.views[nestedView])
+				curr.applyViewConfigs(pageConfig.views[nestedView], curr)
 
-	def applyViewConfigs(self, viewConfig):
+	def applyViewConfigs(self, viewConfig, curr):
 		if hasattr(viewConfig, 'jsInc'):
-			self.js.extend(copy.copy(viewConfig.jsInc))
+			curr.js.extend(copy.copy(viewConfig.jsInc))
 
 		if hasattr(viewConfig, 'cssInc'):
-			self.js.extend(copy.copy(viewConfig.cssInc))
+			curr.js.extend(copy.copy(viewConfig.cssInc))
 
 		if hasattr(viewConfig, 'templates'):
-			self.htmlTemplates.extend(copy.copy(viewConfig.templates))
+			curr.htmlTemplates.extend(copy.copy(viewConfig.templates))
 
 		if hasattr(viewConfig, 'views'):
 			for nestedView in viewConfig.views:
-				self.applyViewConfigs(viewConfig.views[nestedView])
+				curr.applyViewConfigs(viewConfig.views[nestedView], curr)
 
 	#render htmlInc into js html templates
 	def renderTemplates(self, htmlTemplates):
@@ -162,10 +162,11 @@ class Build():
 					templateString += templatePrepend + '.' + type + '.'  + htmlTemplate['typeName'] + ' = {};\n'
 					templateTypes[type][htmlTemplate['typeName']] = templatePrepend + '.' + type + '.' + htmlTemplate['typeName']
 
-
 		for htmlTemplate in htmlTemplates:
 			strippedSource = htmlTemplate['source'].replace('\n', '')
-			strippedSource = strippedSource.replace('"', '\\"')
+			strippedSource = strippedSource.replace('\r', '')
+			strippedSource = strippedSource.replace('\t', ' ')
+			strippedSource = strippedSource.replace('"', '\"')
 			templateString += templateTypes[htmlTemplate['type']][htmlTemplate['typeName']] + '.' + htmlTemplate['name'] + ' = "' + strippedSource + '";\n'
 
 		return templateString
