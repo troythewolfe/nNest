@@ -181,14 +181,23 @@ class Build():
 			if not isinstance(jsFile, dict):
 				externalJsInc.append({ 'url' : jsFile })
 
-		return externalJsInc
+		orderedExtJsInc = []
+		for externalJs in externalJsInc:
+			if externalJs['url'][0] != '/':
+				orderedExtJsInc.append(externalJs)			
+
+		for externalJs in externalJsInc:
+			if externalJs['url'][0] == '/':
+				orderedExtJsInc.append(externalJs)	
+
+		return orderedExtJsInc
 
 	def renderCSS(self, cssFiles):
 		cssInc = ''
 		for cssFile in cssFiles:
 			if isinstance(cssFile, dict):
 				cssInc += cssFile['source'] + '\n'
-	
+	  
 		return cssInc
 
 	#puts all external js files into an object
@@ -198,9 +207,16 @@ class Build():
 			if not isinstance(cssFile, dict):
 				externalCssInc.append({ 'url' : cssFile })
 	
-		#print externalCssInc
+		orderedExtCssInc = []
+		for externalCss in externalCssInc:
+			if externalCss['url'][0] != '/':
+				orderedExtCssInc.append(externalCss)			
+
+		for externalCss in externalCssInc:
+			if externalCss['url'][0] == '/':
+				orderedExtCssInc.append(externalCss)
 			
-		return externalCssInc
+		return orderedExtCssInc
 	
 	#render index
 	def render(self, content, pageName, profile):
@@ -220,7 +236,7 @@ class Build():
 		if isinstance(content, dict):
 			content = content['source']
 
-		print self.getCSS()
+		#print self.getCSS()
 
 		#assing template variables
 		templateContent = {
