@@ -33,6 +33,7 @@ Config.py files control build time behavior, and Controller.py files control run
 * if the file contents are different, then update timestamp
 
 ###Build process
+* Install and integrate scss into build process (SASS CSS compiler) http://packages.python.org/scss/
 * Determine good conditional to import build.py into server.py
 * Make build process adaptable to both index and ajax approaches
 

@@ -9,7 +9,6 @@ This directory contains web views.  A View is composed of:
 			js/
 			lang/
 			models/
-			views/
 
 		config.py
 		controller.py
