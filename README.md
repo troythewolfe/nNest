@@ -30,7 +30,7 @@ Config.py files control build time behavior, and Controller.py files control run
 ##TODO
 ###Cache 
 * use filecomp to check if the gen css/js files are different, and if so, add timestamp to break cache ((http://docs.python.org/library/filecmp.html)
-* add cache breaking mechanism to generated files
+* if the file contents are different, then update timestamp
 
 ###Build process
 * Determine good conditional to import build.py into server.py
@@ -39,6 +39,9 @@ Config.py files control build time behavior, and Controller.py files control run
 ###Build configs
 * Build get method for configs to use instead of inc
 * Make get methods a mixin?
+
+
+
 
 ###Misc
 * Document config get template return object
