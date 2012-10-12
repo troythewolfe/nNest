@@ -1,6 +1,6 @@
 #views
 
-This directory contains web views.  A View is composed of:
+This directory contains shared and global web views.  Views that are specific to pages are within `pages/pageName/views/`.  A View is composed of:
 
 	views/
 		viewName/
