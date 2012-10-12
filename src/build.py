@@ -10,6 +10,7 @@ import sys
 import re
 sys.path.append('/')
 
+APP_JS_NAMESPACE = 'ns'
 HTML_TEMPLATES_JS_NAMESPACE = 'templates'
 
 class Build():
@@ -144,8 +145,10 @@ class Build():
 	#render htmlInc into js html templates
 	def renderTemplates(self, htmlTemplates):
 		#set up base string/namespace
-		templatePrepend = 'window.' + HTML_TEMPLATES_JS_NAMESPACE
-		templateString = templatePrepend + ' = {};\n'
+		templateString = 'window.' + APP_JS_NAMESPACE + ' = {};\n'
+		templatePrepend = 'window.' + APP_JS_NAMESPACE + '.'
+		templatePrepend = templatePrepend + HTML_TEMPLATES_JS_NAMESPACE
+		templateString = templateString + templatePrepend + ' = {};\n'
 
 		typePrepend = {}
 		typeOutputPrepend = {}
@@ -166,7 +169,7 @@ class Build():
 			strippedSource = htmlTemplate['source'].replace('\n', '')
 			strippedSource = strippedSource.replace('\r', '')
 			strippedSource = strippedSource.replace('\t', ' ')
-			strippedSource = strippedSource.replace('"', '\"')
+			strippedSource = strippedSource.replace('"', '\\"')
 			templateString += templateTypes[htmlTemplate['type']][htmlTemplate['typeName']] + '.' + htmlTemplate['name'] + ' = "' + strippedSource + '";\n'
 
 		return templateString

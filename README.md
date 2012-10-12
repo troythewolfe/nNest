@@ -33,18 +33,18 @@ Config.py files control build time behavior, and Controller.py files control run
 * if the file contents are different, then update timestamp
 
 ###Build process
+* Dedupe includes by keeping a list of added entries and checking against it on assignment
 * Install and integrate scss into build process (SASS CSS compiler) http://packages.python.org/scss/
 * Determine good conditional to import build.py into server.py
 * Make build process adaptable to both index and ajax approaches
 
 ###Build configs
+* Add support for page.name.view.name.template paths
 * Build get method for configs to use instead of inc
 * Make get methods a mixin?
 
-
-
-
 ###Misc
+* Add support for inc within a page.view
 * Document config get template return object
 * Make view and page name auto populate, but smarter so they can be nested (pages/ajax/pageName)
 * make framework installable: http://stackoverflow.com/questions/5360873/how-do-i-package-a-python-application-to-make-it-pip-installable

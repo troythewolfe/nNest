@@ -1,1 +1,1 @@
-console.log('views/nav/nav.js');
+console.log('pages/home/nav/nav.js');

@@ -15,4 +15,12 @@ def init(profile):
 		config.get('template', 'homeSnippet')
 	]
 
+	
+	print 'home config'
+
+	import pages.home.views.nav.config as homeNav
+	config.views ={
+		'homeNav' : homeNav.init(profile)
+	}
+
 	return config
