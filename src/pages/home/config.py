@@ -8,6 +8,7 @@ def init(profile):
 	config.html = config.get('html')
 	config.head['title'] = 'home page title set here'
 	
+	'''
 	config.css = [
 		config.get('css'),
 		
@@ -97,6 +98,7 @@ def init(profile):
 			'view' : 'nav'
 		})
 	]
+	'''
 
 	import pages.home.views.nav.config as homeNav
 	config.views ={

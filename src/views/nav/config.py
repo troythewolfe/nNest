@@ -5,6 +5,7 @@ import os
 def init(profile):
 	config = ConfigView(os.path.abspath(__file__))
 
+	'''
 	config.css = [
 		config.get('css'),
 		
@@ -94,6 +95,7 @@ def init(profile):
 			'view' : 'nav'
 		})
 	]
+	'''
 
 	import views.footer.config as footer
 	config.views = {
