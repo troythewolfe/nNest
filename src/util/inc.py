@@ -10,7 +10,7 @@ pagePath = 'pages/'
 indexPath = 'indexes/'
 langlPath = 'lang/'
 
-def js(fileName, type='', name=''):
+def js(fileName, type='', name='', pageView=''):
 	ext = 'js'
 	
 	localJsPath = jsPath
@@ -19,7 +19,10 @@ def js(fileName, type='', name=''):
 		localJsPath = viewPath + name + '/' + jsPath
 
 	if type == 'page':
-		localJsPath = pagePath + name + '/' + jsPath
+		if pageView == '':
+			localJsPath = pagePath + name + '/' + jsPath
+		else:
+			localJsPath = pagePath + pageView + '/views/' + name + '/' + jsPath
 
 	filePath = localJsPath + fileName + '.' + ext
 
@@ -39,7 +42,10 @@ def css(fileName, type='', name=''):
 		localCssPath = viewPath + name + '/' + cssPath
 
 	if type == 'page':
-		localCssPath = pagePath + name + '/' + cssPath
+		if pageView == '':
+			localCssPath = pagePath + name + '/' + cssPath
+		else:
+			localCssPath = pagePath + pageView + '/views/' + name + '/' + cssPath
 
 	filePath = localCssPath + fileName + '.' + ext
 
@@ -50,7 +56,7 @@ def css(fileName, type='', name=''):
 
 	return cssFile
 
-def html(fileName, type='', name=''):
+def html(fileName, type='', name='', pageView=''):
 	ext = 'html'
 
 	localHtmlPath = htmlPath
@@ -59,13 +65,19 @@ def html(fileName, type='', name=''):
 		localHtmlPath = viewPath + name + '/' + htmlPath
 
 	if type == 'page':
-		localHtmlPath = pagePath + name + '/' + htmlPath
+		if pageView == '':
+			localHtmlPath = pagePath + name + '/' + htmlPath
+		else:
+			localHtmlPath = pagePath + pageView + '/views/' + name + '/' + htmlPath
+
+	if type == 'html':
+		localHtmlPath = localHtmlPath + name + '/'
 
 	filePath = localHtmlPath + fileName + '.' + ext
 
 	htmlFile = {
-		'location' : filePath,
-		'source' : open(filePath).read()
+		'source' : open(filePath).read(),
+		'location' : filePath
 	}
 
 	return htmlFile

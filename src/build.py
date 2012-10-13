@@ -144,6 +144,7 @@ class Build():
 
 	#render htmlInc into js html templates
 	def renderTemplates(self, htmlTemplates):
+		'''
 		#set up base string/namespace
 		templateString = 'window.' + APP_JS_NAMESPACE + ' = {};\n'
 		templatePrepend = 'window.' + APP_JS_NAMESPACE + '.'
@@ -173,6 +174,7 @@ class Build():
 			templateString += templateTypes[htmlTemplate['type']][htmlTemplate['typeName']] + '.' + htmlTemplate['name'] + ' = "' + strippedSource + '";\n'
 
 		return templateString
+		'''
 
 	#compiles local js
 	def renderJS(self, jsFiles, htmlTemplates):
@@ -181,7 +183,7 @@ class Build():
 			if isinstance(jsFile, dict):
 				jsInc += jsFile['source'] + '\n'
 		
-		jsInc += self.renderTemplates(htmlTemplates)
+		#jsInc += self.renderTemplates(htmlTemplates)
 
 		return jsInc
 

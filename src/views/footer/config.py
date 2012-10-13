@@ -5,8 +5,8 @@ import os
 def init(profile):
 	config = ConfigView(os.path.abspath(__file__))
 
-	config.jsInc =[
-		config.get('js')
-	]
+	#config.jsInc =[
+	#	config.get('js')
+	#]
 
 	return config

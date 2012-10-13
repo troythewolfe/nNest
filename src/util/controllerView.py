@@ -3,9 +3,12 @@ import pystache
 import os
 
 class View():
-	def __init__(self, profile, loc):
+	def __init__(self, profile, loc, viewType='view'):
 		self.profile = profile
-		self.name = os.path.split(os.path.dirname(loc))[1]
+		if isinstance(loc, 'str'):
+			self.name = loc
+		else:
+			self.name = os.path.split(os.path.dirname(loc))[1]
 
 	def get(self, ext, name=False):
 		if name == False:

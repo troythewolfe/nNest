@@ -6,16 +6,16 @@ import os
 def init(profile):
 	config = ConfigView(os.path.abspath(__file__))
 
-	config.jsInc = [
-		config.get('js')
-	]
+	#config.jsInc = [
+	#	config.get('js')
+	#]
 
-	config.templates = [
-		config.get('template', 'navItem'),
-		config.get('template', 'listItem', 'shared'),
-		config.get('template', 'listItem1', 'shared'),
-		config.get('template', 'main', 'buttons')
-	]
+	#config.templates = [
+		#config.get('template', 'navItem'),
+		#config.get('template', 'listItem', 'shared'),
+		#config.get('template', 'listItem1', 'shared'),
+		#config.get('template', 'main', 'buttons')
+	#]
 
 	import views.footer.config as footer
 	config.views = {

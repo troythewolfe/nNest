@@ -5,6 +5,7 @@ import util.inc as inc
 def init():
 	config = ConfigRoot()
 
+	'''
 	config.jsInc = [
 		'https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js',
 		inc.js('third-party/jquery-1.8.2'),
@@ -16,9 +17,10 @@ def init():
 		'http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css',
 		inc.css('main')
 	]
+	'''
 
 	config.templates = [
-		inc.template('listItem', 'shared')
+		#inc.template('listItem', 'shared')
 	]
 	
 	return config
