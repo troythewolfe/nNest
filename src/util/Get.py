@@ -1,4 +1,86 @@
-import util.inc as inc
+import json
+import sys
+sys.path.append('/')
+
+jsPath = 'js/'
+cssPath = 'css/'
+htmlPath = 'html/'
+viewPath = 'views/'
+pagePath = 'pages/'
+indexPath = 'indexes/'
+langlPath = 'lang/'
+
+def js(fileName, type='', name='', pageView=''):
+	ext = 'js'
+	
+	localJsPath = jsPath
+
+	if type == 'view':
+		localJsPath = viewPath + name + '/' + jsPath
+
+	if type == 'page':
+		if pageView == '':
+			localJsPath = pagePath + name + '/' + jsPath
+		else:
+			localJsPath = pagePath + pageView + '/views/' + name + '/' + jsPath
+
+	filePath = localJsPath + fileName + '.' + ext
+
+	jsFile = {
+		'location' : filePath,
+		'source' : open(filePath).read()
+	}
+
+	return jsFile
+
+def css(fileName, type='', name='', pageView=''):
+	ext = 'css'
+
+	localCssPath = cssPath
+
+	if type == 'view':
+		localCssPath = viewPath + name + '/' + cssPath
+
+	if type == 'page':
+		if pageView == '':
+			localCssPath = pagePath + name + '/' + cssPath
+		else:
+			localCssPath = pagePath + pageView + '/views/' + name + '/' + cssPath
+
+	filePath = localCssPath + fileName + '.' + ext
+
+	cssFile = {
+		'location' : filePath,
+		'source' : open(filePath).read()
+	}
+
+	return cssFile
+
+def html(fileName, type='', name='', pageView=''):
+	ext = 'html'
+
+	localHtmlPath = htmlPath
+
+	if type == 'view':
+		localHtmlPath = viewPath + name + '/' + htmlPath
+
+	if type == 'page':
+		if pageView == '':
+			localHtmlPath = pagePath + name + '/' + htmlPath
+		else:
+			localHtmlPath = pagePath + pageView + '/views/' + name + '/' + htmlPath
+
+	if type == 'html':
+		localHtmlPath = localHtmlPath + name + '/'
+
+	filePath = localHtmlPath + fileName + '.' + ext
+
+	htmlFile = {
+		'source' : open(filePath).read(),
+		'location' : filePath
+	}
+
+	return htmlFile
 
 class Get():
 	def __init__(self):
@@ -26,49 +108,47 @@ class Get():
 			if options == {}:
 				if self.configType == 'view':
 					if self.viewPage == False:
-						return inc.css(fileName, 'view', self.name)
+						return css(fileName, 'view', self.name)
 					else:
-						return inc.css(fileName, 'page', self.name, self.viewPage)
+						return css(fileName, 'page', self.name, self.viewPage)
 				elif self.configType == 'page':
-					return inc.css(fileName, 'page', self.name)
+					return css(fileName, 'page', self.name)
 			else:
 				if 'css' in options and (options['css'] == True):
-					return inc.css(fileName)
+					return css(fileName)
 					
 				if 'view' in options and not 'page' in options:
-					return inc.css(fileName, 'view', options['view'])
+					return css(fileName, 'view', options['view'])
 					
 				if 'page' in options:
 					if 'view' in options:
-						return inc.css(fileName, 'page', options['view'], options['page'])
+						return css(fileName, 'page', options['view'], options['page'])
 					else:
-						return inc.css(fileName, 'page', options['page'])
+						return css(fileName, 'page', options['page'])
 
 		### JS
 		if ext == 'js':
 			if options == {}:
 				if self.configType == 'view':
 					if self.viewPage == False:
-						return inc.js(fileName, 'view', self.name)
+						return js(fileName, 'view', self.name)
 					else:
-						return inc.js(fileName, 'page', self.name, self.viewPage)
+						return js(fileName, 'page', self.name, self.viewPage)
 				elif self.configType == 'page':
-					return inc.js(fileName, 'page', self.name)
+					return js(fileName, 'page', self.name)
 
 			else:
 				if 'js' in options and (options['js'] == True):
-					return inc.js(fileName)
+					return js(fileName)
 					
 				if 'view' in options and not 'page' in options:
-					return inc.js(fileName, 'view', options['view'])
+					return js(fileName, 'view', options['view'])
 					
 				if 'page' in options:
 					if 'view' in options:
-						return inc.js(fileName, 'page', options['view'], options['page'])
+						return js(fileName, 'page', options['view'], options['page'])
 					else:
-						return inc.js(fileName, 'page', options['page'])
-
-
+						return js(fileName, 'page', options['page'])
 
 		### TEMPLATE
 		if ext == 'html':
@@ -89,14 +169,14 @@ class Get():
 				if self.viewPage == False:
 					if self.configType == 'view':
 						#return a path to view/viewname/html/filename.html
-						returnTemplate = dict(template, **inc.html(fileName, 'view', self.name))
+						returnTemplate = dict(template, **html(fileName, 'view', self.name))
 						returnTemplate['type'] = 'view'
 					elif self.configType == 'page':
-						returnTemplate = dict(template, **inc.html(fileName, 'page', self.name))
+						returnTemplate = dict(template, **html(fileName, 'page', self.name))
 						returnTemplate['type'] = 'page'
 				else:
 					#return a path to pages/pageName/views/viewName/html/filename.html
-					returnTemplate = dict(template, **inc.html(fileName, 'page', self.name, self.viewPage))
+					returnTemplate = dict(template, **html(fileName, 'page', self.name, self.viewPage))
 					returnTemplate['type'] = 'page'
 					returnTemplate['page'] = self.viewPage
 					returnTemplate['view'] = self.name
@@ -104,28 +184,67 @@ class Get():
 			else:
 				if 'html' in options:
 					#return a path to html/folderName/filename.html
-					returnTemplate = dict(template, **inc.html(fileName, 'html', options['html']))
+					returnTemplate = dict(template, **html(fileName, 'html', options['html']))
 					returnTemplate['type'] = 'html'
 					returnTemplate['html'] = options['html']
 					
 				if 'view' in options and not 'page' in options:
 					#return a path to views/viewName/html/filename.html
-					returnTemplate = dict(template, **inc.html(fileName, 'view', options['view']))
+					returnTemplate = dict(template, **html(fileName, 'view', options['view']))
 					returnTemplate['type'] = 'view'
 					returnTemplate['view'] = options['view']
 						
 				if 'page' in options: 
 					if 'view' in options:
 						#return a path to pages/pageName/views/viewName/html/filename.html
-						returnTemplate = dict(template, **inc.html(fileName, 'page', options['view'], options['page']))
+						returnTemplate = dict(template, **html(fileName, 'page', options['view'], options['page']))
 						returnTemplate['type'] = 'page'
 						returnTemplate['page'] = options['page']
 						returnTemplate['view'] = options['view']
 					else:
 						#return a path to page/pageName/html/filename.html
-						returnTemplate = dict(template, **inc.html(fileName, 'page', options['page']))
+						returnTemplate = dict(template, **html(fileName, 'page', options['page']))
 						returnTemplate['type'] = 'page'
 						returnTemplate['page'] = options['page']
 			
 			return returnTemplate
+			
+		if ext == 'index':
+			#convert variables
+			ext = 'html'
+			indexPage = fileName
+			indexProfile = options
+
+			filePath = indexPath + indexProfile + '-' + indexPage + '.' + ext
+	
+			htmlFile = {
+				'location' : filePath,
+				'source' : open(filePath).read()
+			}
+
+			return htmlFile
+			
+		if ext == 'lang':
+					
+			#def lang(fileName, type='', name=''):
+			ext = 'json'
+			return False
+			'''
+			localLangPath = langlPath
+
+			if type == 'view':
+				localLangPath = viewPath + name + '/' + langlPath
+
+			if type == 'page':
+				localLangPath = pagePath + name + '/' + langlPath
+
+			filePath = localLangPath + fileName + '.' + ext
+
+			langFile = {
+				'location' : filePath,
+				'source' : json.load(open(filePath))
+			}
+			
+			return langFile
+			'''	
 

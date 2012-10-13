@@ -1,8 +1,8 @@
 from util.controllerView import View
 import os
 
-def init(profile):
-	view = View(profile, os.path.abspath(__file__))
+def init(profile, options={}):
+	view = View(profile, 'nav')
 
 	# run-time generated content
 	viewContent = {

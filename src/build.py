@@ -1,6 +1,7 @@
 import util.inc as inc
-import appSettings.configPageIndexes as configPageIndexes
-import appSettings.globalInc as globalInc
+import appSettings.configPages as configPages
+import appSettings.configAjax as configAjax
+import appSettings.globalPageInc as globalPageInc
 import appSettings.profileList as profileList
 import pystache
 import copy
@@ -35,13 +36,13 @@ class Build():
 		self.profiles = profileList.init()
 
 		#build global includes
-		self.globalInc = globalInc.init()
+		self.globalPageInc = globalPageInc.init()
 
 		self.externalJsInc = []
 		self.globals = {}
-		self.globals['js'] = copy.copy(self.globalInc.jsInc)
-		self.globals['css'] = copy.copy(self.globalInc.cssInc)
-		self.globals['htmlTemplates'] = copy.copy(self.globalInc.templates)
+		self.globals['js'] = copy.copy(self.globalPageInc.jsInc)
+		self.globals['css'] = copy.copy(self.globalPageInc.cssInc)
+		self.globals['htmlTemplates'] = copy.copy(self.globalPageInc.templates)
 
 		globalJsInc = 'static/js/global.js'
 		jsFile = open(globalJsInc, 'w+')
@@ -59,7 +60,7 @@ class Build():
 			self.profile = profile
 
 			#init the config based on current profile
-			self.config = configPageIndexes.init(self.profile)
+			self.config = configPages.init(self.profile)
 
 			#loop over each page listed in config
 			for pageConfig in self.config.pages:
