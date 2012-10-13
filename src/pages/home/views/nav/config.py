@@ -1,4 +1,3 @@
-import util.inc as inc
 from util.configView import ConfigView
 import os
 
@@ -9,11 +8,11 @@ def init(profile):
 	config.css = [
 		config.get('css'),
 		
-		config.get('css', 'navSub'),
+		config.get('css', 'nav'),
 		
 		config.get('css', 'test/nav'),
 		
-		config.get('css', 'test', {
+		config.get('css', 'main', {
 			'type' : 'css'
 		}),
 		
@@ -27,7 +26,7 @@ def init(profile):
 			'page' : 'home'
 		}),
 		
-		config.get('css', 'navSub', {
+		config.get('css', 'nav', {
 			'type' : 'page',
 			'page' : 'home',
 			'view' : 'nav'
@@ -100,7 +99,5 @@ def init(profile):
 	config.views = {
 		'footer' : footer.init(profile)
 	}
-	
-	print config.templates
 
 	return config

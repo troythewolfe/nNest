@@ -3,6 +3,8 @@ nNest for python
 
 # UNDER CONSTRUCTION
 
+*Currently in a broken state*
+
 Python, flask and backbone app framework with a focus on putting as much responsibility on the build process as possible and code reuse between device source code.
 
 ##Python Dependencies

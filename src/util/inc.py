@@ -33,7 +33,7 @@ def js(fileName, type='', name='', pageView=''):
 
 	return jsFile
 
-def css(fileName, type='', name=''):
+def css(fileName, type='', name='', pageView=''):
 	ext = 'css'
 
 	localCssPath = cssPath
