@@ -3,7 +3,7 @@ from util.configPage import ConfigPage
 import os
 
 def init(profile):
-	config = ConfigPage(os.path.abspath(__file__))
+	config = ConfigPage('calendar')
 
 	config.html = config.get('html')
 	config.head['title'] = 'home page title set here'

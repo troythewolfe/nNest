@@ -4,7 +4,7 @@ class Get():
 	def __init__(self):
 		pass
 		
-	def get(self, ext, fileName=False, options={}):
+	def get(self, ext, fileName=False, options={}, viewPage=False, name=False, configType=False, viewType=False):
 		jsPath = 'js/'
 		cssPath = 'css/'
 		htmlPath = 'html/'
@@ -12,32 +12,33 @@ class Get():
 		pagePath = 'pages/'
 		indexPath = 'indexes/'
 		langlPath = 'lang/'
-
-		if not hasattr(self, 'viewPage'):
-			self.viewPage = False
+		
+		self.configType = configType
+		self.viewType = viewType
+		self.viewPage = viewPage
+		self.name = name
 		
 		if fileName == False:
 			fileName = self.name
 
-
 		### CSS
 		if ext == 'css':
 			if options == {}:
-				if self.viewType == 'view':
+				if self.configType == 'view':
 					if self.viewPage == False:
 						return inc.css(fileName, 'view', self.name)
 					else:
 						return inc.css(fileName, 'page', self.name, self.viewPage)
-				elif self.viewType == 'page':
+				elif self.configType == 'page':
 					return inc.css(fileName, 'page', self.name)
 			else:
-				if options['type'] == 'css':
+				if 'css' in options and (options['css'] == True):
 					return inc.css(fileName)
 					
-				if options['type'] == 'view':
-					return inc.css(fileName, 'view', self.name)
+				if 'view' in options and not 'page' in options:
+					return inc.css(fileName, 'view', options['view'])
 					
-				if options['type'] == 'page':
+				if 'page' in options:
 					if 'view' in options:
 						return inc.css(fileName, 'page', options['view'], options['page'])
 					else:
@@ -46,19 +47,22 @@ class Get():
 		### JS
 		if ext == 'js':
 			if options == {}:
-				if self.viewPage == False:
-					return inc.js(fileName, 'view', self.name)
-				else:
-					return inc.js(fileName, 'page', self.name, self.viewPage)
+				if self.configType == 'view':
+					if self.viewPage == False:
+						return inc.js(fileName, 'view', self.name)
+					else:
+						return inc.js(fileName, 'page', self.name, self.viewPage)
+				elif self.configType == 'page':
+					return inc.js(fileName, 'page', self.name)
 
 			else:
-				if options['type'] == 'js':
+				if 'js' in options and (options['js'] == True):
 					return inc.js(fileName)
 					
-				if options['type'] == 'view':
-					return inc.js(fileName, 'view', self.name)
+				if 'view' in options and not 'page' in options:
+					return inc.js(fileName, 'view', options['view'])
 					
-				if options['type'] == 'page':
+				if 'page' in options:
 					if 'view' in options:
 						return inc.js(fileName, 'page', options['view'], options['page'])
 					else:
@@ -83,9 +87,13 @@ class Get():
 			
 			if options == {}:
 				if self.viewPage == False:
-					#return a path to view/viewname/html/filename.html
-					returnTemplate = dict(template, **inc.html(fileName, 'view', self.name))
-					returnTemplate['type'] = 'view'
+					if self.configType == 'view':
+						#return a path to view/viewname/html/filename.html
+						returnTemplate = dict(template, **inc.html(fileName, 'view', self.name))
+						returnTemplate['type'] = 'view'
+					elif self.configType == 'page':
+						returnTemplate = dict(template, **inc.html(fileName, 'page', self.name))
+						returnTemplate['type'] = 'page'
 				else:
 					#return a path to pages/pageName/views/viewName/html/filename.html
 					returnTemplate = dict(template, **inc.html(fileName, 'page', self.name, self.viewPage))
@@ -94,36 +102,30 @@ class Get():
 					returnTemplate['view'] = self.name
 				
 			else:
-				if options['type'] == 'html':
-					if 'html' in options:
-						#return a path to html/folderName/filename.html
-						returnTemplate = dict(template, **inc.html(fileName, 'html', options['html']))
-						returnTemplate['type'] = 'html'
-						returnTemplate['html'] = options['html']
-					else:
-						print 'Error: you cannot include templates from the root of src/html/'
-			
-				if options['type'] == 'view':
+				if 'html' in options:
+					#return a path to html/folderName/filename.html
+					returnTemplate = dict(template, **inc.html(fileName, 'html', options['html']))
+					returnTemplate['type'] = 'html'
+					returnTemplate['html'] = options['html']
+					
+				if 'view' in options and not 'page' in options:
+					#return a path to views/viewName/html/filename.html
+					returnTemplate = dict(template, **inc.html(fileName, 'view', options['view']))
+					returnTemplate['type'] = 'view'
+					returnTemplate['view'] = options['view']
+						
+				if 'page' in options: 
 					if 'view' in options:
-						#return a path to views/viewName/html/filename.html
-						returnTemplate = dict(template, **inc.html(fileName, 'view', options['view']))
-						returnTemplate['type'] = 'view'
-						returnTemplate['view'] = options['view']
-					else:
-						print 'Error: you cannot include templates from the root of src/views/'
-			
-				if options['type'] == 'page':
-					if 'page' in options and not ('view' in options):
-						#return a path to page/pageName/html/filename.html
-						returnTemplate = dict(template, **inc.html(fileName, 'page', options['page']))
-						returnTemplate['type'] = 'page'
-						returnTemplate['page'] = options['page']
-					elif ('page' in options) and ('view' in options):
 						#return a path to pages/pageName/views/viewName/html/filename.html
 						returnTemplate = dict(template, **inc.html(fileName, 'page', options['view'], options['page']))
 						returnTemplate['type'] = 'page'
 						returnTemplate['page'] = options['page']
 						returnTemplate['view'] = options['view']
+					else:
+						#return a path to page/pageName/html/filename.html
+						returnTemplate = dict(template, **inc.html(fileName, 'page', options['page']))
+						returnTemplate['type'] = 'page'
+						returnTemplate['page'] = options['page']
 			
 			return returnTemplate
 

@@ -1,9 +1,10 @@
-from util.Get import Get
+from util.Get import Get 
+get = Get()
 import os
 
-class ConfigView(Get):
+class ConfigView():
 	def __init__(self, loc, viewPage=False):
-		self.name = os.path.split(os.path.dirname(loc))[1]
+		self.name = loc
 		self.viewPage = viewPage
 		if not self.viewPage == False:
 			self.viewType = 'view'
@@ -15,3 +16,7 @@ class ConfigView(Get):
 		self.jsInc = []
 		self.cssInc = []
 		self.htmlInc = []
+
+	def get(self, ext, fileName=False, options={}):
+		#return self.name
+		return get.get(ext, fileName, options, self.viewPage, self.name, self.configType, self.viewType)

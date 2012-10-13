@@ -1,9 +1,10 @@
 from util.Get import Get
+get = Get()
 import os
 
-class ConfigPage(Get):
+class ConfigPage():
 	def __init__(self, loc):
-		self.name = os.path.split(os.path.dirname(loc))[1]
+		self.name = loc
 		self.configType = 'page'
 		self.html = {}
 		self.head = {
@@ -13,3 +14,6 @@ class ConfigPage(Get):
 		self.jsInc = []
 		self.cssInc = []
 		self.htmlInc = []
+		
+	def get(self, ext, fileName=False, options={}):
+		return get.get(ext, fileName, options, False, self.name, self.configType, False)
