@@ -101,7 +101,5 @@ def init(profile):
 	config.views = {
 		'footer' : footer.init(profile)
 	}
-	
-	print config.templates
 
 	return config

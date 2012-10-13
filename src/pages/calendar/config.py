@@ -7,8 +7,10 @@ def init(profile):
 
 	config.html = config.get('html')
 	config.head['title'] = 'home page title set here'
+	'''
 	config.jsInc =[
 		config.get('js')
 	]
-
+	'''
+	
 	return config
