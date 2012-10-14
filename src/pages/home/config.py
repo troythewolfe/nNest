@@ -8,7 +8,7 @@ def init(profile):
 	config.html = config.get('html')
 	config.head['title'] = 'home page title set here'
 	
-	config.css = [
+	config.cssInc = [
 		config.get('css'),
 		
 		config.get('css', 'home'),
@@ -33,7 +33,7 @@ def init(profile):
 		})
 	]
 
-	config.js = [
+	config.jsInc = [
 		config.get('js'),
 		
 		config.get('js', 'home'),

@@ -209,6 +209,7 @@ class Get():
 			
 			return returnTemplate
 			
+		### INDEX
 		if ext == 'index':
 			#convert variables
 			ext = 'html'
@@ -223,7 +224,8 @@ class Get():
 			}
 
 			return htmlFile
-			
+		
+		### LANG
 		if ext == 'lang':
 					
 			#def lang(fileName, type='', name=''):
