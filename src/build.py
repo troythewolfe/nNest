@@ -47,12 +47,10 @@ class Build():
 		globalJsInc = 'static/js/global.js'
 		jsFile = open(globalJsInc, 'w+')
 		jsFile.write(self.renderJS(self.globals['js'], self.globals['htmlTemplates']))
-		globalJsPath = '/' + globalJsInc
 
 		mainCssInc = 'static/css/global.css'
 		cssFile = open(mainCssInc, 'w+')
 		cssFile.write(self.renderCSS(self.globals['css']))
-		globalCssPath = '/' + mainCssInc
 
 		#loop over each profile
 		for profile in self.profiles:

@@ -8,7 +8,7 @@ def init(profile):
 	config.html = config.get('html')
 	config.head['title'] = 'home page title set here'
 	
-	config.baseTemplate = 'ajax'
+	#config.baseTemplate = 'ajax'
 	
 	config.cssInc = [
 		config.get('css'),
