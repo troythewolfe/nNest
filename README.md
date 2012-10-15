@@ -62,5 +62,5 @@ Config.py files control build time behavior, and Controller.py files control run
 		'name' : 'fileName'
 		'root' : True || 'htmlFolderName'
 		'page' : 'pageName',
-		'view' : 'pageName'
+		'view' : 'viewName'
 	}
