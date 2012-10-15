@@ -6,9 +6,13 @@
   <meta name="description" content="Test HTML Template">
   <meta name="author" content="troythewolfe">
   
-  {{#cssInc}}
+  {{#cssExternal}}
 	<link href="{{url}}" rel="stylesheet" type="text/css">
-	{{/cssInc}}
+	{{/cssExternal}}
+  
+  <link href="{{cssGlobal}}" rel="stylesheet" type="text/css">
+  
+	<link href="{{cssInc}}" rel="stylesheet" type="text/css">
   <!--link rel="stylesheet" href="css/styles.css?v=1.0"-->
   <!--[if lt IE 9]>
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -17,8 +21,12 @@
 <body>
 {{{bodyContent}}}
 
-{{#jsInc}}
+{{#jsExternal}}
 <script src="{{url}}" type="text/javascript"></script>
-{{/jsInc}}
+{{/jsExternal}}
+
+<script src="{{jsGlobal}}" type="text/javascript"></script>
+
+<script src="{{jsInc}}" type="text/javascript"></script>
 </body>
 </html>

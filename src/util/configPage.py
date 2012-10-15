@@ -1,6 +1,5 @@
 from util.Get import Get
 get = Get()
-import os
 
 class ConfigPage():
 	def __init__(self, loc):

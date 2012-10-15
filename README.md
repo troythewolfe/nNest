@@ -37,12 +37,9 @@ Config.py files control build time behavior, and Controller.py files control run
 * Dedupe includes by keeping a list of added entries and checking against it on assignment
 * Integrate SASS and CoffeeScript
 
-###Build configs
-* Add support for page.name.view.name.template paths
-
 ###Misc
-* Complete wiring for ajax pages, including building ajax templates
 * make framework installable: http://stackoverflow.com/questions/5360873/how-do-i-package-a-python-application-to-make-it-pip-installable
+* Add support for root config get shortcuts in Get.py
 
 ####Documenation
 * Update all docs

@@ -174,6 +174,7 @@ class Get():
 					elif self.configType == 'page':
 						returnTemplate = dict(template, **html(fileName, 'page', self.name))
 						returnTemplate['type'] = 'page'
+
 				else:
 					#return a path to pages/pageName/views/viewName/html/filename.html
 					returnTemplate = dict(template, **html(fileName, 'page', self.name, self.viewPage))

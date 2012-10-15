@@ -68,21 +68,17 @@ class Build():
 				self.baseTemplate = copy.copy(self.config.baseTemplate)
 				
 				self.js = []
-
 				for jsInc in self.globals['js']:
 					if not isinstance(jsInc, dict):
 						self.js.append(jsInc)
 
-				self.js.append(globalJsPath)
 				self.js.extend(copy.copy(self.config.jsInc))
 			
 				self.css = []
-
 				for cssInc in self.globals['css']:
 					if not isinstance(cssInc, dict):
 						self.css.append(cssInc)
 
-				self.css.append(globalCssPath)
 				self.css.extend(copy.copy(self.config.cssInc))
 				self.htmlTemplates = copy.copy(self.config.templates)
 				self.views = copy.copy(self.config.views)
@@ -129,6 +125,7 @@ class Build():
 			for nestedView in pageConfig.views:
 				curr.applyViewConfigs(pageConfig.views[nestedView], curr)
 
+	#add includes to config for current profile/page
 	def applyViewConfigs(self, viewConfig, curr):
 		if hasattr(viewConfig, 'jsInc'):
 			curr.js.extend(copy.copy(viewConfig.jsInc))
@@ -145,37 +142,76 @@ class Build():
 
 	#render htmlInc into js html templates
 	def renderTemplates(self, htmlTemplates):
-		'''
+		
+		def processSource(sourceStr):
+			strippedSource = sourceStr.replace('\n', '')
+			strippedSource = strippedSource.replace('\r', '')
+			strippedSource = strippedSource.replace('\t', ' ')
+			strippedSource = strippedSource.replace('"', '\\"')
+			return strippedSource
+		
 		#set up base string/namespace
 		templateString = 'window.' + APP_JS_NAMESPACE + ' = {};\n'
 		templatePrepend = 'window.' + APP_JS_NAMESPACE + '.'
 		templatePrepend = templatePrepend + HTML_TEMPLATES_JS_NAMESPACE
-		templateString = templateString + templatePrepend + ' = {};\n'
-
-		typePrepend = {}
-		typeOutputPrepend = {}
+		templateString += templatePrepend + ' = {};\n'
+		
+		#use for view
+		templateViewPrepend = templatePrepend + '.view'
+		templateString += templateViewPrepend + ' = {};\n'
+		
+		#use for page
+		templatePagePrepend = templatePrepend + '.page'
+		templateString += templatePagePrepend + ' = {};\n'
+		
+		#use for html
+		templateHTMLPrepend = templatePrepend + '.html'
+		templateString += templateHTMLPrepend + ' = {};\n'
+		
+		templateRoots = []
 
 		#loop over to determine html/folders and types
 		templateTypes = {}
-		for htmlTemplate in htmlTemplates:
-			templateTypes[htmlTemplate['type']] = {}
+		for htmlTemplate in htmlTemplates:			
+			if not (htmlTemplate['html'] == False):
+				if not (htmlTemplate['html'] == True):
+					templateRoots.append(templateHTMLPrepend + '.' + htmlTemplate['html'] + ' = {};\n')
 		
-		for type in templateTypes:
-			templateString += templatePrepend + '.' + type + ' = {};\n'
-			for htmlTemplate in htmlTemplates:
-				if htmlTemplate['type'] == type: 
-					templateString += templatePrepend + '.' + type + '.'  + htmlTemplate['typeName'] + ' = {};\n'
-					templateTypes[type][htmlTemplate['typeName']] = templatePrepend + '.' + type + '.' + htmlTemplate['typeName']
-
+			if not (htmlTemplate['view'] == False) and (htmlTemplate['page'] == False):
+				templateRoots.append(templateViewPrepend + '.' + htmlTemplate['view'] + ' = {};\n')
+				
+			if not (htmlTemplate['page'] == False):
+				templateRoots.append(templatePagePrepend + '.' + htmlTemplate['page'] + ' = {};\n')
+				
+				if not (htmlTemplate['view'] == False):
+					templateRoots.append(templatePagePrepend + '.' + htmlTemplate['page'] + '.' + htmlTemplate['view'] + ' = {};\n')	
+		
+		dedupedTemplateRoots = []
+		
+		for rootTemplate in templateRoots:
+			if rootTemplate not in dedupedTemplateRoots:
+				dedupedTemplateRoots.append(rootTemplate)
+		
+		for rootTemplate in dedupedTemplateRoots:
+			templateString += rootTemplate
+				
 		for htmlTemplate in htmlTemplates:
-			strippedSource = htmlTemplate['source'].replace('\n', '')
-			strippedSource = strippedSource.replace('\r', '')
-			strippedSource = strippedSource.replace('\t', ' ')
-			strippedSource = strippedSource.replace('"', '\\"')
-			templateString += templateTypes[htmlTemplate['type']][htmlTemplate['typeName']] + '.' + htmlTemplate['name'] + ' = "' + strippedSource + '";\n'
-
+			if not (htmlTemplate['html'] == False):
+				if not (htmlTemplate['html'] == True):
+					templateString += templateHTMLPrepend + '.' + htmlTemplate['html'] + '.' + htmlTemplate['fileName'] + ' = "' + processSource(htmlTemplate['source']) + '";\n'
+				else:
+					templateString += templateHTMLPrepend + '.' + htmlTemplate['fileName'] + ' = "' + processSource(htmlTemplate['source']) + '";\n'
+		
+			if not (htmlTemplate['view'] == False) and (htmlTemplate['page'] == False):
+				templateString += templateViewPrepend + '.' + htmlTemplate['view'] + '.' + htmlTemplate['fileName'] + ' = "' + processSource(htmlTemplate['source']) + '";\n'
+			
+			if not (htmlTemplate['page'] == False):
+				if (htmlTemplate['view'] == False):
+					templateString += templatePagePrepend + '.' + htmlTemplate['page'] + '.' + htmlTemplate['fileName'] + ' = "' + processSource(htmlTemplate['source']) + '";\n'
+				else:
+					templateString += templatePagePrepend + '.' + htmlTemplate['page'] + '.' + htmlTemplate['view'] + '.' + htmlTemplate['fileName'] + ' = "' + processSource(htmlTemplate['source']) + '";\n'
+		
 		return templateString
-		'''
 
 	#compiles local js
 	def renderJS(self, jsFiles, htmlTemplates):
@@ -184,7 +220,7 @@ class Build():
 			if isinstance(jsFile, dict):
 				jsInc += jsFile['source'] + '\n'
 		
-		#jsInc += self.renderTemplates(htmlTemplates)
+		jsInc += self.renderTemplates(htmlTemplates)
 
 		return jsInc
 
@@ -198,14 +234,11 @@ class Build():
 		orderedExtJsInc = []
 		for externalJs in externalJsInc:
 			if externalJs['url'][0] != '/':
-				orderedExtJsInc.append(externalJs)			
-
-		for externalJs in externalJsInc:
-			if externalJs['url'][0] == '/':
-				orderedExtJsInc.append(externalJs)	
+				orderedExtJsInc.append(externalJs)
 
 		return orderedExtJsInc
 
+	#compiles local css
 	def renderCSS(self, cssFiles):
 		cssInc = ''
 		for cssFile in cssFiles:
@@ -214,7 +247,7 @@ class Build():
 	  
 		return cssInc
 
-	#puts all external js files into an object
+	#puts all external css files into an object
 	def getCSS(self):
 		externalCssInc = []
 		for cssFile in self.css:
@@ -237,15 +270,13 @@ class Build():
 		#add generated js/css files to lists
 		profilePage = profile + '-' + pageName		
 
-		mainJsInc = 'static/js/' + profilePage + '-min.js'
+		mainJsInc = 'static/js/' + profilePage + '.js'
 		jsFile = open(mainJsInc, 'w+')
 		jsFile.write(self.renderJS(self.js, self.htmlTemplates))
-		self.js.append('/' + mainJsInc)
 
-		mainCssInc = 'static/css/' + profilePage + '-min.css'
+		mainCssInc = 'static/css/' + profilePage + '.css'
 		cssFile = open(mainCssInc, 'w+')
 		cssFile.write(self.renderCSS(self.css))
-		self.css.append('/' + mainCssInc)
 
 		if isinstance(content, dict):
 			content = content['source']
@@ -253,8 +284,12 @@ class Build():
 		#assing template variables
 		templateContent = {
 			'title' : self.head['title'],
-			'jsInc' : self.getJS(),
-			'cssInc' : self.getCSS(),
+			'jsGlobal' : '/static/js/global.js',
+			'jsInc' : '/static/js/' + profilePage + '.js',
+			'jsExternal' : self.getJS(),
+			'cssGlobal' : '/static/css/global.css',
+			'cssInc' : '/static/css/' + profilePage + '.css',
+			'cssExternal' : self.getCSS(),
 			'bodyContent' : content
 		}
 
