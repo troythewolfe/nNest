@@ -1,6 +1,5 @@
 from util.Get import Get
 get = Get()
-import util.inc as inc
 import pystache
 import os
 

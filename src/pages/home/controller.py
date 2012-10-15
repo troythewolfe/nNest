@@ -1,5 +1,4 @@
 from util.controllerPage import Page
-import os
 
 def init(profile, options={}):
 	page = Page(profile, 'home')

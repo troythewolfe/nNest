@@ -1,5 +1,4 @@
 from util.configRoot import ConfigRoot
-import util.inc as inc
 
 def init(profile):
 	#create config object

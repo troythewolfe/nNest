@@ -2,7 +2,9 @@ def init(app, processPage):
 	#app pages
 	@app.route('/')
 	def home():
+		print 'home function'
 		import pages.home.controller as page
+		print 'home function after import'
 		return processPage(page)
 
 	@app.route('/calendar/')

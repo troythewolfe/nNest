@@ -1,5 +1,4 @@
 from util.configRoot import ConfigRoot
-import util.inc as inc
 
 #define global js, css and template includes
 def init():
@@ -24,5 +23,30 @@ def init():
 			'css' : True
 		})
 	]
+	
+	'''
+	Alternative syntax:
+	
+	config.require({
+		...
+	},{
+		...
+	},{
+		...
+	},{
+		...
+	})
+	
+	{
+		'type' : 'string' //'html', 'css', 'js', 'lang'
+		'file' : '',
+		'css' : '',
+		'js' : '',
+		'html' : '',
+		'lang' : '',
+		'page' : '',
+		'view' : ''
+	}
+	'''
 	
 	return config

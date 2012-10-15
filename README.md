@@ -37,6 +37,33 @@ Config.py files control build time behavior, and Controller.py files control run
 ###Misc
 * make framework installable: http://stackoverflow.com/questions/5360873/how-do-i-package-a-python-application-to-make-it-pip-installable
 * Add support for root config get shortcuts in Get.py
+* Add in logging
+* Add in hard fail checks
 
 ####Documenation
 * Update all docs
+
+####Convert get into json format
+
+	Alternative syntax:
+
+	config.require({
+		...
+	},{
+		...
+	},{
+		...
+	},{
+		...
+	})
+
+	{
+		'type' : 'string' //'html', 'css', 'js', 'lang'
+		'file' : '',
+		'css' : '',
+		'js' : '',
+		'html' : '',
+		'lang' : '',
+		'page' : '',
+		'view' : ''
+	}

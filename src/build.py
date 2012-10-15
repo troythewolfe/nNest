@@ -1,6 +1,5 @@
-import util.inc as inc
 import appSettings.configPages as configPages
-import appSettings.configAjax as configAjax
+from util.Get import html 
 import appSettings.globalPageInc as globalPageInc
 import appSettings.profileList as profileList
 import pystache
@@ -293,7 +292,8 @@ class Build():
 
 		#create index file
 		indexFile = open('indexes/' + profilePage + '.html', 'w+')
-		pageTemplate = inc.html(self.baseTemplate)
+		pageTemplate = html(self.baseTemplate)
+		print pageTemplate['source']
 		indexFile.write(pystache.render(pageTemplate['source'], templateContent))
 
 build = Build()
