@@ -43,7 +43,7 @@ Config.py files control build time behavior, and Controller.py files control run
 ####Documenation
 * Update all docs
 
-####Convert get into json format
+####Convert Get.get into json format
 
 	Alternative syntax:
 
@@ -58,12 +58,9 @@ Config.py files control build time behavior, and Controller.py files control run
 	})
 
 	{
-		'type' : 'string' //'html', 'css', 'js', 'lang'
-		'file' : '',
-		'css' : '',
-		'js' : '',
-		'html' : '',
-		'lang' : '',
-		'page' : '',
-		'view' : ''
+		'type' : 'html' || 'css' || 'js' || 'lang'
+		'name' : 'fileName'
+		'root' : True || 'htmlFolderName'
+		'page' : 'pageName',
+		'view' : 'pageName'
 	}
