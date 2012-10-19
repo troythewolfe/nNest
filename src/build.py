@@ -1,6 +1,6 @@
 import appSettings.configPages as configPages
 from util.Get import html 
-import appSettings.globalPageInc as globalPageInc
+import appSettings.globalPageInc as globalInc
 import appSettings.profileList as profileList
 import pystache
 import copy
@@ -21,7 +21,7 @@ class Build():
 			shutil.rmtree(indexDir)
 		os.mkdir(indexDir)
 
-		jsDir = 'static/js'
+		jsDir = 'static/requireJs/generated'
 		if os.path.isdir(jsDir):
 			shutil.rmtree(jsDir)
 		os.mkdir(jsDir)
@@ -31,19 +31,48 @@ class Build():
 			shutil.rmtree(cssDir)
 		os.mkdir(cssDir)
 
+		staticRootJs = 'static/requireJs/root/js'
+		if os.path.isdir(staticRootJs):
+			shutil.rmtree(staticRootJs)
+		shutil.copytree('js', 'static/requireJs/root/js/')
+
+		staticRootViews = 'static/requireJs/root/views'
+		if os.path.isdir(staticRootViews):
+			shutil.rmtree(staticRootViews)
+		shutil.copytree('views', 'static/requireJs/root/views/')
+
+		staticRootPages = 'static/requireJs/root/pages'
+		if os.path.isdir(staticRootPages):
+			shutil.rmtree(staticRootPages)
+		shutil.copytree('pages', 'static/requireJs/root/pages/')
+
+		staticHTML = 'static/requireJs/html'
+		if os.path.isdir(staticHTML):
+			shutil.rmtree(staticHTML)
+		shutil.copytree('html', 'static/requireJs/html/')
+
+		folder = 'static/requireJs'
+		for the_file in os.listdir(folder):
+			file_path = os.path.join(folder, the_file)
+			try:
+				if os.path.isfile(file_path):
+					os.unlink(file_path)
+			except Exception, e:
+				print e
+
 		#get registered profiles
 		self.profiles = profileList.init()
 
 		#build global includes
-		self.globalPageInc = globalPageInc.init()
+		self.globalInc = globalInc.init()
 
 		self.externalJsInc = []
 		self.globals = {}
-		self.globals['js'] = copy.copy(self.globalPageInc.jsInc)
-		self.globals['css'] = copy.copy(self.globalPageInc.cssInc)
-		self.globals['htmlTemplates'] = copy.copy(self.globalPageInc.templates)
+		self.globals['js'] = copy.copy(self.globalInc.jsInc)
+		self.globals['css'] = copy.copy(self.globalInc.cssInc)
+		self.globals['htmlTemplates'] = copy.copy(self.globalInc.templates)
 
-		globalJsInc = 'static/js/global.js'
+		globalJsInc = 'static/requireJs/global.js'
 		jsFile = open(globalJsInc, 'w+')
 		jsFile.write(self.renderJS(self.globals['js'], self.globals['htmlTemplates']))
 
@@ -267,7 +296,7 @@ class Build():
 		#add generated js/css files to lists
 		profilePage = profile + '-' + pageName		
 
-		mainJsInc = 'static/js/' + profilePage + '.js'
+		mainJsInc = 'static/requireJs/' + profilePage + '.js'
 		jsFile = open(mainJsInc, 'w+')
 		jsFile.write(self.renderJS(self.js, self.htmlTemplates))
 
@@ -281,19 +310,16 @@ class Build():
 		#assing template variables
 		templateContent = {
 			'title' : self.head['title'],
-			'jsGlobal' : '/static/js/global.js',
-			'jsInc' : '/static/js/' + profilePage + '.js',
-			'jsExternal' : self.getJS(),
-			'cssGlobal' : '/static/css/global.css',
-			'cssInc' : '/static/css/' + profilePage + '.css',
-			'cssExternal' : self.getCSS(),
+			'profilePage' : profilePage,
+			'jsInc' : self.getJS(),
+			'cssInc' : self.getCSS(),
 			'bodyContent' : content
 		}
 
 		#create index file
 		indexFile = open('indexes/' + profilePage + '.html', 'w+')
 		pageTemplate = html(self.baseTemplate)
-		print pageTemplate['source']
+		#print pageTemplate['source']
 		indexFile.write(pystache.render(pageTemplate['source'], templateContent))
 
 build = Build()
