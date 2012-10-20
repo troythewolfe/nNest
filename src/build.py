@@ -21,11 +21,6 @@ class Build():
 			shutil.rmtree(indexDir)
 		os.mkdir(indexDir)
 
-		jsDir = 'static/requireJs/generated'
-		if os.path.isdir(jsDir):
-			shutil.rmtree(jsDir)
-		os.mkdir(jsDir)
-
 		cssDir = 'static/css'
 		if os.path.isdir(cssDir):
 			shutil.rmtree(cssDir)
