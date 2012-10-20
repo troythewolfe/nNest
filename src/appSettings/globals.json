@@ -1,0 +1,17 @@
+{
+	dir: {
+		views: 'views',
+		pages: 'pages',
+		js: 'js',
+		css: 'css',
+		html: 'html',
+		index: 'indexes',
+		static: 'static',
+		staticRequire: 'requireJs',
+		staticRoot: 'root'
+	},
+	nameSpaces: {
+		jsNamespace: 'nmspc',
+		templatesNamespace: 'html'
+	}
+}
