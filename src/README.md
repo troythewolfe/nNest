@@ -2,8 +2,6 @@
 
 Runs in `server.py` and crawl root, page and view configs.
 
-Must
-
 Generates:
 
 - Index templates in `/src/indexes/`
