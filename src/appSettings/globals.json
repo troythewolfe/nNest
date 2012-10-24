@@ -11,7 +11,21 @@
 		staticRoot: 'root'
 	},
 	nameSpaces: {
-		jsNamespace: 'nmspc',
-		templatesNamespace: 'html'
+		jsNamespace: 'appName',
+		templatesNamespace: 'html',
+		viewNamespace: 'view',
+		pageNamespace: 'page'
+	},
+	inc: {
+		js: [
+			''
+		],
+		css: [
+			''
+		],
+		html: [
+		
+		],
+		
 	}
 }
