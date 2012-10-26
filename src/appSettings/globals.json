@@ -1,31 +1,30 @@
 {
-	dir: {
-		views: 'views',
-		pages: 'pages',
-		js: 'js',
-		css: 'css',
-		html: 'html',
-		index: 'indexes',
-		static: 'static',
-		staticRequire: 'requireJs',
-		staticRoot: 'root'
+	"dir" : {
+		"views" : "views",
+		"pages" : "pages",
+		"js" : "js",
+		"css" : "css",
+		"html" : "html",
+		"index" : "indexes",
+		"static" : "static",
+		"staticRequire" : "requireJs",
+		"staticRoot" : "root"
 	},
-	nameSpaces: {
-		jsNamespace: 'appName',
-		templatesNamespace: 'html',
-		viewNamespace: 'view',
-		pageNamespace: 'page'
+	"nameSpace" : {
+		"js" : "appName",
+		"template" : "html",
+		"view" : "view",
+		"page" : "page"
 	},
-	inc: {
-		js: [
-			''
+	"addInc" : {
+		"js" : [
+			"/js/third-party/"
 		],
-		css: [
-			''
-		],
-		html: [
+		"css" : [
 		
 		],
+		"html" : [
 		
+		]
 	}
 }

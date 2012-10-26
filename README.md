@@ -26,6 +26,12 @@ coffee -cw index.coffee
 ##Build-time vs Run-time
 Config.py files control build time behavior, and Controller.py files control run time.
 
+##Dependency architecture
+There are two, complimentary dependency architectures in nNest.  The first is a standard server side include schema.  
+This will let you add includes (defined within a json file) to the global bundles and the page bundles.
+
+Any dependencies beyond these 
+
 ##TODO
 ###Cache 
 * use filecomp to check if the gen css/js files are different, and if so, add timestamp to break cache ((http://docs.python.org/library/filecmp.html)
@@ -42,6 +48,8 @@ Config.py files control build time behavior, and Controller.py files control run
 
 ####Documenation
 * Update all docs
+
+
 
 ####Convert Get.get into json format
 

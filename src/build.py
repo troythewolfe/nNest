@@ -15,6 +15,18 @@ HTML_TEMPLATES_JS_NAMESPACE = 'templates'
 
 class Build():
 	def __init__(self):
+		
+		#get globals
+		global_string = open('appSettings/globals.json')
+		self.g = json.load(global_string)
+		global_string.close()
+		
+		#get profile array
+		profile_string = open('appSettings/profiles.json')
+		self.profiles = json.load(profile_string)
+		profile_string.close()
+		self.profiles = self.profiles['profiles']
+		
 		#empty generated dirs
 		indexDir = 'indexes'
 		if os.path.isdir(indexDir):
@@ -54,12 +66,6 @@ class Build():
 					os.unlink(file_path)
 			except Exception, e:
 				print e
-
-		#get profile array
-		profile_string = open('appSettings/profiles.json')
-		self.profiles = json.load(profile_string)
-		profile_string.close()
-		self.profiles = self.profiles['profiles']
 		
 		self.globalInc = globalInc.init()
 
