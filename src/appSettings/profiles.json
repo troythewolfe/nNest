@@ -1,0 +1,8 @@
+{
+	"profiles" : [
+		"modernWeb",
+		"legacyWeb",
+		"chromeWeb",
+		"testingJson"
+	]
+}
