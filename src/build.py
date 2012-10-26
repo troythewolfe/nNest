@@ -1,9 +1,9 @@
 import appSettings.configPages as configPages
 from util.Get import html 
 import appSettings.globalPageInc as globalInc
-import appSettings.profileList as profileList
 import pystache
 import copy
+import json
 import shutil
 import os
 import sys
@@ -55,10 +55,12 @@ class Build():
 			except Exception, e:
 				print e
 
-		#get registered profiles
-		self.profiles = profileList.init()
-
-		#build global includes
+		#get profile array
+		profile_string = open('appSettings/profiles.json')
+		self.profiles = json.load(profile_string)
+		profile_string.close()
+		self.profiles = self.profiles['profiles']
+		
 		self.globalInc = globalInc.init()
 
 		self.externalJsInc = []
