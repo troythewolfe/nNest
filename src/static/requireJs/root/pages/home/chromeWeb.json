@@ -1,0 +1,25 @@
+{
+	"html" : "home",
+	"head" : {
+		"title" : { "lang" : "path.name" }
+	},
+	"ajax" : "true",
+	"css" : [
+		"home",
+		"test/home",
+		{ "css" : "main" }
+	],
+	"js" : [
+		"home",
+		{ "js" : "test" },
+		{ "js" : "util/test" }
+	],
+	"templates" : [
+		"homeSnippet",
+		{ "dir" : "buttons", "name" : "main" }
+	],
+	"views" : [
+		"nav",
+		{ "views" : "footer" }
+	]
+}

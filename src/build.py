@@ -1,6 +1,7 @@
 import appSettings.configPages as configPages
 from util.Get import html 
 import appSettings.globalPageInc as globalInc
+import util.parseConfigJson as parseJson
 import pystache
 import copy
 import json
@@ -26,6 +27,12 @@ class Build():
 		self.profiles = json.load(profile_string)
 		profile_string.close()
 		self.profiles = self.profiles['profiles']
+		
+		#get pages
+		pages_string = open('appSettings/pages.json')
+		self.pages = json.load(pages_string)
+		self.pages = self.pages['pages']
+		pages_string.close()
 		
 		#empty generated dirs
 		indexDir = 'indexes'
@@ -87,12 +94,12 @@ class Build():
 		for profile in self.profiles:
 			#set the current profile
 			self.profile = profile
-
+			
 			#init the config based on current profile
 			self.config = configPages.init(self.profile)
 
 			#loop over each page listed in config
-			for pageConfig in self.config.pages:
+			for page in self.pages:
 				#apply global config
 				self.baseTemplate = copy.copy(self.config.baseTemplate)
 				
@@ -108,16 +115,36 @@ class Build():
 					if not isinstance(cssInc, dict):
 						self.css.append(cssInc)
 
-				self.css.extend(copy.copy(self.config.cssInc))
-				self.htmlTemplates = copy.copy(self.config.templates)
+				#self.css.extend(copy.copy(self.config.cssInc))
+				self.htmlTemplates = []
+				
+				
 				self.views = copy.copy(self.config.views)
+				
 				self.head = {
-					'title' : copy.copy(self.config.head['title'])
+					'title' : 'Where should i store the default title?'
 				}
+				
 				self.pageTemplate = '{{{content}}}'
 				
+				#import current page config
+				pageConfigString = open('pages/home/config.json')
+				pageConfigJson = json.load(pageConfigString)
+				pageConfigString.close()
+				
+				
+				
+				pageConfig = __import__('pages.' + page + '.config', fromlist=['config'])
+				
+				#print pageConfig
+				
+				pageConfigJson = pageConfig.init(profile)
+				
+				#print 'configJson'
+				#print pageConfigJson.jsInc
+				
 				#apply page config
-				self.applyPageConfig(self.config.pages[pageConfig], self)
+				self.applyPageConfig(pageConfigJson, self)
 	
 				#apply view configs
 				if self.views:

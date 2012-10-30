@@ -1,0 +1,13 @@
+{
+	"html" : "",
+	"head" : {
+		"title" : {
+			"lang" : "path.name"
+		}
+	},
+	"ajax" : True,
+	"css" : [],
+	"js" : [],
+	"templates" : [],
+	"views" : []
+}

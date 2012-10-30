@@ -1,7 +1,7 @@
+/*register global views*/
+
 {
 	"views": [
-		"home",
-		"calendar",
-		"todo"
+		"nav"
 	]
 }
