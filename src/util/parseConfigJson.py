@@ -8,6 +8,7 @@ sys.path.append('/')
 get = Get()
 
 def parseConfig(loc):
+	#build the relative path to this config
 	def buildPath():
 		path = ''
 		configType = ''
@@ -31,6 +32,7 @@ def parseConfig(loc):
 		
 		return buildPath;
 	
+	#parse config json file into dict
 	def parseFile(configPath):
 		try:
 			config_string = open(configPath + '.json')
@@ -47,6 +49,7 @@ def parseConfig(loc):
 			
 		return config_json
 
+	#parse asset into asset object which includes source as string
 	def parseAssets(config_json, curr_config):
 		def getAsset(assetType):
 			currAsset = []
@@ -56,6 +59,9 @@ def parseConfig(loc):
 					'local' : True,
 					'path' : False
 				}
+				
+				if assetType == 'template':
+					assetType = 'html'
 				
 				assetExt = assetType
 						
@@ -130,30 +136,50 @@ def parseConfig(loc):
 				currAsset.append(assetPath)
 			
 			return currAsset
-			
-		curr_config.jsInc = getAsset('js')
-		curr_config.cssInc = getAsset('css')
-		curr_config.htmlInc = getAsset('html')
-		curr_config.langInc = getAsset('lang')
 		
-		print curr_config.jsInc
-		print '-----'
-		print ' '
+		if 'template' in config_json:
+			curr_config.template = getAsset('template')
 		
-		print curr_config.cssInc
-		print '-----'
-		print ' '
+		if 'js' in config_json:
+			curr_config.js = getAsset('js')
 		
-		print curr_config.htmlInc
-		print '-----'
-		print ' '
+		if 'css' in config_json:
+			curr_config.css = getAsset('css')
 		
-		print curr_config.langInc
-		print '-----'
-		print ' '
+		if 'html' in config_json:
+			curr_config.html = getAsset('html')
+		
+		if 'lang' in config_json:
+			curr_config.lang = getAsset('lang')
 		
 		return curr_config
 		
+	#parse views into config objects
+	def parseViews(config_json, curr_config):
+		currViews = []
+		
+		#loop over views
+		for view in config_json['views']:
+			currView = {}
+			
+			#create object to pass to parent function
+			if type(view) is unicode:
+				currView['view'] = view
+			
+			if 'page' in view:
+				currView['page'] = view['page']
+			
+			if 'view' in view:
+				currView['view'] = view['view']
+				
+			currView['lang'] = loc['lang']
+			currView['profile'] = loc['profile']
+			
+			#recursively call parent function to populate parse view config
+			currViews.append(parseConfig(currView))
+		
+		return currViews
+			
 	#build path based on loc
 	buildPath = buildPath()
 	
@@ -162,42 +188,26 @@ def parseConfig(loc):
 
 	#instantiate base config class
 	if ('view' in loc):
-		currConfig = ConfigPage(loc)
-	else:
 		currConfig = ConfigView(loc)
+	else:
+		currConfig = ConfigPage(loc)
 
 	#parse assets and return populated config class
-	return parseAssets(configJson, currConfig)
+	returnConfig = parseAssets(configJson, currConfig)
+	
+	if 'views' in configJson:
+		print 'views in configJson'
+		returnConfig.views = parseViews(configJson, currConfig)
+	
+	returnConfig.loc = loc
+	
+	return returnConfig
 
-
-#print 'page:home'
-#print '-------------------'
+#test
 currConfig = parseConfig({
 	'lang' : 'en',
 	'profile' : 'chromeWeb',
 	'page' : 'home'
 })
 
-#print currConfig
-#print '-------------------'
-#print ' '
-
-"""
-print 'page:home, view:nav'
-print '-------------------'
-print parseConfig({
-	'page' : 'home',
-	'view' : 'nav'
-})
-
-print '-------------------'
-print ' '
-
-print 'view:nav'
-print '-------------------'
-print parseConfig({
-	'view' : 'nav'
-})
-print '-------------------'
-print ' '
-"""
+print currConfig.views[0].loc

@@ -16,15 +16,5 @@
 		"view" : "view",
 		"page" : "page"
 	},
-	"addInc" : {
-		"js" : [
-			"/js/third-party/"
-		],
-		"css" : [
-		
-		],
-		"html" : [
-		
-		]
-	}
+	"defaultLang" : "en"
 }
