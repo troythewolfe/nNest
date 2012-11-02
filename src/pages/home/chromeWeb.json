@@ -1,25 +1,40 @@
 {
 	"html" : "home",
+	
 	"head" : {
 		"title" : { "lang" : "path.name" }
 	},
+	
 	"ajax" : "true",
+	
 	"css" : [
 		"home",
-		"test/home",
-		{ "css" : "main" }
+		{ "css": "test" },
+		{ "css": "nav/css/test" },
+		{ "css": "test", "view": "nav" },
+		{ "css": "test", "page": "home" },
+		{ "css": "test", "page": "home", "view": "nav" },
+		{ "ext" : "example.com/styles" }
 	],
+	
 	"js" : [
-		"home",
-		{ "js" : "test" },
-		{ "js" : "util/test" }
+		"test1",
+		{ "js": "test2" },
+		{ "js": "nav/js/test3" },
+		{ "js": "test4", "view": "nav" },
+		{ "js": "test5", "page": "home" },
+		{ "js": "test6", "view": "nav", "page": "home" },
+		{ "ext" : "example.com/test7" }
 	],
-	"templates" : [
+	
+	"html" : [
 		"homeSnippet",
-		{ "dir" : "buttons", "name" : "main" }
+		{ "html": "main", "dir": "buttons" }
 	],
+	
 	"views" : [
 		"nav",
-		{ "views" : "footer" }
+		{ "view": "footer" },
+		{ "view": "footer", "page": "home" }
 	]
 }
