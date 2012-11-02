@@ -1,4 +1,4 @@
-from util.Get import Get
+from Get import Get
 get = Get()
 
 class ConfigPage():
