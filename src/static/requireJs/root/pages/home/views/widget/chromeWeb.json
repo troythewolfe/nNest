@@ -1,34 +1,23 @@
 {
-	"template" : [{ "html": "test4", "page": "home" }],
-	
-	"head" : {
-		"title" : { "lang" : "path.name" }
-	},
-	
-	"ajax" : "true",
-	
 	"css" : [
-		"test1",
 		{ "css": "test2" },
 		{ "css": "testDir/test3" },
 		{ "css": "test4", "view": "nav" },
 		{ "css": "test5", "page": "home" },
 		{ "css": "test6", "page": "home", "view": "nav" },
-		{ "ext" : "example.com/test7" }
+		{ "ext": "example.com/test7" }
 	],
 	
 	"js" : [
-		"test1",
 		{ "js": "test2" },
 		{ "js": "testDir/test3" },
 		{ "js": "test4", "view": "nav" },
 		{ "js": "test5", "page": "home" },
 		{ "js": "test6", "view": "nav", "page": "home" },
-		{ "ext" : "example.com/test7" }
+		{ "ext": "example.com/test7" }
 	],
 	
 	"html" : [
-		"test1",
 		{ "html": "test2", "dir": "buttons" },
 		{ "html": "test3", "view": "nav" },
 		{ "html": "test4", "page": "home" },
@@ -36,16 +25,9 @@
 	],
 	
 	"lang" : [
-		"testDir1",
 		{ "lang": "testDir2" },
 		{ "lang": "testDir3", "view": "nav" },
 		{ "lang": "testDir4", "page": "home" },
 		{ "lang": "testDir5", "view": "nav", "page": "home" }
-	],
-	
-	"views" : [
-		"nav",
-		{ "view": "footer" },
-		{ "view": "widget", "page": "home" }
 	]
 }

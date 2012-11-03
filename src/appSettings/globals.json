@@ -16,5 +16,6 @@
 		"view" : "view",
 		"page" : "page"
 	},
-	"defaultLang" : "en"
+	"defaultLang" : "en",
+	"baseTemplate" : "base"
 }

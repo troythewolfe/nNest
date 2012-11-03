@@ -21,7 +21,7 @@ def parseConfig(loc):
 		if ('page' in loc) and not ('view' in loc):
 			path = 'pages/' + loc['page']
 		elif ('page' in loc) and ('view' in loc):
-			path = 'pages/' + loc['page'] + '/view/' + loc['view']
+			path = 'pages/' + loc['page'] + '/views/' + loc['view']
 		elif not ('page' in loc) and ('view' in loc):
 			path = 'views/' + loc['view']
 
@@ -37,14 +37,14 @@ def parseConfig(loc):
 		try:
 			config_string = open(configPath + '.json')
 		except: 
-			error.log('no file found at ' + configPath + '.json')
+			error.log('no file found at ' + configPath + '.json', 'WARNING')
 			return False
 		
 		try:
 			config_json = json.load(config_string)
 			config_string.close()
 		except:
-			error.log('badly formed json in ' + configPath + '.json')
+			error.log('badly formed json in ' + configPath + '.json', 'WARNING')
 			return False
 			
 		return config_json
@@ -131,7 +131,7 @@ def parseConfig(loc):
 					try:
 						assetPath['source'] = open(assetPath['path']).read()
 					except: 
-						error.log('no file found at ' + assetPath['path'])					
+						error.log('no file found at ' + assetPath['path'])				
 				
 				currAsset.append(assetPath)
 			
@@ -186,6 +186,10 @@ def parseConfig(loc):
 	#get config json file based on buildPath
 	configJson = parseFile(buildPath['path'] + '/' + buildPath['profile'])
 
+	#if there is no file, return False so that the caller sknows file does't exist
+	if configJson is False:
+		return False
+
 	#instantiate base config class
 	if ('view' in loc):
 		currConfig = ConfigView(loc)
@@ -194,20 +198,10 @@ def parseConfig(loc):
 
 	#parse assets and return populated config class
 	returnConfig = parseAssets(configJson, currConfig)
-	
-	if 'views' in configJson:
-		print 'views in configJson'
-		returnConfig.views = parseViews(configJson, currConfig)
-	
 	returnConfig.loc = loc
 	
+	if 'views' in configJson:
+		returnConfig.views = parseViews(configJson, currConfig)
+	
+	#return built config object
 	return returnConfig
-
-#test
-currConfig = parseConfig({
-	'lang' : 'en',
-	'profile' : 'chromeWeb',
-	'page' : 'home'
-})
-
-print currConfig.views[0].loc

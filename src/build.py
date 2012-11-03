@@ -1,7 +1,6 @@
-import appSettings.configPages as configPages
 from util.Get import html 
 import appSettings.globalPageInc as globalInc
-import util.parseConfigJson as parseJson
+import util.parseConfigJson as parseConfig
 import pystache
 import copy
 import json
@@ -16,7 +15,6 @@ HTML_TEMPLATES_JS_NAMESPACE = 'templates'
 
 class Build():
 	def __init__(self):
-		
 		#get globals
 		global_string = open('appSettings/globals.json')
 		self.g = json.load(global_string)
@@ -45,6 +43,7 @@ class Build():
 			shutil.rmtree(cssDir)
 		os.mkdir(cssDir)
 
+		#clone assets into static
 		staticRootJs = 'static/requireJs/root/js'
 		if os.path.isdir(staticRootJs):
 			shutil.rmtree(staticRootJs)
@@ -65,6 +64,7 @@ class Build():
 			shutil.rmtree(staticHTML)
 		shutil.copytree('html', 'static/requireJs/html/')
 
+		#remove files from asset root, but leave directories
 		folder = 'static/requireJs'
 		for the_file in os.listdir(folder):
 			file_path = os.path.join(folder, the_file)
@@ -73,51 +73,68 @@ class Build():
 					os.unlink(file_path)
 			except Exception, e:
 				print e
-		
+
+		#set globalInc properties
+		#used to build the global js and css files
 		self.globalInc = globalInc.init()
 
 		self.externalJsInc = []
-		self.globals = {}
-		self.globals['js'] = copy.copy(self.globalInc.jsInc)
-		self.globals['css'] = copy.copy(self.globalInc.cssInc)
-		self.globals['htmlTemplates'] = copy.copy(self.globalInc.templates)
+		self.globalConfig = {}
+		self.globalConfig['js'] = copy.copy(self.globalInc.jsInc)
+		self.globalConfig['css'] = copy.copy(self.globalInc.cssInc)
+		self.globalConfig['htmlTemplates'] = copy.copy(self.globalInc.templates)
 
 		globalJsInc = 'static/requireJs/global.js'
 		jsFile = open(globalJsInc, 'w+')
-		jsFile.write(self.renderJS(self.globals['js'], self.globals['htmlTemplates']))
+		jsFile.write(self.renderJS(self.globalConfig['js'], self.globalConfig['htmlTemplates']))
 
 		mainCssInc = 'static/css/global.css'
 		cssFile = open(mainCssInc, 'w+')
-		cssFile.write(self.renderCSS(self.globals['css']))
+		cssFile.write(self.renderCSS(self.globalConfig['css']))
 
 		#loop over each profile
 		for profile in self.profiles:
 			#set the current profile
 			self.profile = profile
-			
-			#init the config based on current profile
-			self.config = configPages.init(self.profile)
 
 			#loop over each page listed in config
-			for page in self.pages:
+			for page in self.pages:				
+				#by default send down en lang package
+				#if en is ever no longer the majority of traffic, this can be removed
+				self.config = parseConfig.parseConfig({
+					'lang' : 'en',
+					'profile' : profile,
+					'page' : page
+				})
+				
+				if self.config is False:
+					self.config = parseConfig.parseConfig({
+						'lang' : 'en',
+						'profile' : 'config',
+						'page' : page
+					})
+				
 				#apply global config
-				self.baseTemplate = copy.copy(self.config.baseTemplate)
+				if hasattr(self.config, 'baseTemplate'):
+					self.baseTemplate = self.config.baseTemplate
+				else:
+					self.baseTemplate = 'base'
 				
 				self.js = []
-				for jsInc in self.globals['js']:
+				for jsInc in self.globalConfig['js']:
 					if not isinstance(jsInc, dict):
 						self.js.append(jsInc)
 
-				self.js.extend(copy.copy(self.config.jsInc))
+				self.js.extend(copy.copy(self.config.js))
 			
 				self.css = []
-				for cssInc in self.globals['css']:
+				for cssInc in self.globalConfig['css']:
 					if not isinstance(cssInc, dict):
 						self.css.append(cssInc)
 
-				#self.css.extend(copy.copy(self.config.cssInc))
-				self.htmlTemplates = []
+				self.css.extend(copy.copy(self.config.css))
 				
+				self.htmlTemplates = []
 				
 				self.views = copy.copy(self.config.views)
 				
@@ -126,30 +143,16 @@ class Build():
 				}
 				
 				self.pageTemplate = '{{{content}}}'
-				
-				#import current page config
-				pageConfigString = open('pages/home/config.json')
-				pageConfigJson = json.load(pageConfigString)
-				pageConfigString.close()
-				
-				
-				
-				pageConfig = __import__('pages.' + page + '.config', fromlist=['config'])
-				
-				#print pageConfig
-				
-				pageConfigJson = pageConfig.init(profile)
-				
-				#print 'configJson'
-				#print pageConfigJson.jsInc
-				
+								
 				#apply page config
-				self.applyPageConfig(pageConfigJson, self)
+				self.applyPageConfig(self.config, self)
 	
 				#apply view configs
 				if self.views:
 					for view in self.views:
-						self.applyViewConfigs(self.views[view], self)
+						print 'view ============================='
+						print view
+						self.applyViewConfigs(view, self)
 				
 				#render page
 				self.render(self.pageTemplate, self.pageName, self.profile)
@@ -179,7 +182,10 @@ class Build():
 
 		if hasattr(pageConfig, 'views'):
 			for nestedView in pageConfig.views:
-				curr.applyViewConfigs(pageConfig.views[nestedView], curr)
+				print 'nestedView ================'
+				print nestedView
+				
+				curr.applyViewConfigs(nestedView, curr)
 
 	#add includes to config for current profile/page
 	def applyViewConfigs(self, viewConfig, curr):
@@ -194,11 +200,10 @@ class Build():
 
 		if hasattr(viewConfig, 'views'):
 			for nestedView in viewConfig.views:
-				curr.applyViewConfigs(viewConfig.views[nestedView], curr)
+				curr.applyViewConfigs(nestedView, curr)
 
 	#render htmlInc into js html templates
 	def renderTemplates(self, htmlTemplates):
-		
 		def processSource(sourceStr):
 			strippedSource = sourceStr.replace('\n', '')
 			strippedSource = strippedSource.replace('\r', '')
@@ -273,7 +278,12 @@ class Build():
 	def renderJS(self, jsFiles, htmlTemplates):
 		jsInc = ''
 		for jsFile in jsFiles:
-			if isinstance(jsFile, dict):
+			print 'jsFile'
+			print jsFile
+			if isinstance(jsFile, dict) and not (jsFile['local'] is False):
+				print 'jsFile'
+				print jsFile
+				
 				jsInc += jsFile['source'] + '\n'
 		
 		jsInc += self.renderTemplates(htmlTemplates)
@@ -324,7 +334,7 @@ class Build():
 	#render index
 	def render(self, content, pageName, profile):
 		#add generated js/css files to lists
-		profilePage = profile + '-' + pageName		
+		profilePage = profile + '-' + pageName['page']		
 
 		mainJsInc = 'static/requireJs/' + profilePage + '.js'
 		jsFile = open(mainJsInc, 'w+')

@@ -1,6 +1,6 @@
-def log(msg, errorType="Fatal Error"):
-	print '!!!!!!!!!!!!!!!!!!!!!!!!!'
+def log(msg, errorType="Error"):
+	print '--------------------------'
 	print ' '
 	print errorType + ': ' + msg
 	print ' '
-	print '!!!!!!!!!!!!!!!!!!!!!!!!!'
+	print '--------------------------'
