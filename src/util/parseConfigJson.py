@@ -25,6 +25,9 @@ def parseConfig(loc):
 		elif not ('page' in loc) and ('view' in loc):
 			path = 'views/' + loc['view']
 
+		if 'global' in loc:
+			path = 'appSettings/'
+
 		buildPath = {
 			'path' : path,
 			'profile' : configType
@@ -193,6 +196,13 @@ def parseConfig(loc):
 	#instantiate base config class
 	if ('view' in loc):
 		currConfig = ConfigView(loc)
+	
+		'''
+		#TODO: Refactor ConfigRoot into new format
+		#elif ('global' in loc):
+			#currConfig = ConfigRoot(loc) 
+		'''
+	
 	else:
 		currConfig = ConfigPage(loc)
 
@@ -201,7 +211,7 @@ def parseConfig(loc):
 	returnConfig.loc = loc
 	
 	if 'views' in configJson:
-		returnConfig.views = parseViews(configJson, currConfig)
+		returnConfig.views = configJson['views']
 	
 	#return built config object
 	return returnConfig

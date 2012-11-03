@@ -1,7 +1,5 @@
 {
 	"pages" : [
-		"home",
-		"calendar",
-		"todo"
+		"home"
 	]
 }

@@ -1,5 +1,4 @@
 from util.Get import html 
-import appSettings.globalPageInc as globalInc
 import util.parseConfigJson as parseConfig
 import pystache
 import copy
@@ -15,82 +14,102 @@ HTML_TEMPLATES_JS_NAMESPACE = 'templates'
 
 class Build():
 	def __init__(self):
-		#get globals
-		global_string = open('appSettings/globals.json')
-		self.g = json.load(global_string)
-		global_string.close()
-		
-		#get profile array
-		profile_string = open('appSettings/profiles.json')
-		self.profiles = json.load(profile_string)
-		profile_string.close()
-		self.profiles = self.profiles['profiles']
-		
-		#get pages
-		pages_string = open('appSettings/pages.json')
-		self.pages = json.load(pages_string)
-		self.pages = self.pages['pages']
-		pages_string.close()
-		
-		#empty generated dirs
-		indexDir = 'indexes'
-		if os.path.isdir(indexDir):
-			shutil.rmtree(indexDir)
-		os.mkdir(indexDir)
-
-		cssDir = 'static/css'
-		if os.path.isdir(cssDir):
-			shutil.rmtree(cssDir)
-		os.mkdir(cssDir)
-
-		#clone assets into static
-		staticRootJs = 'static/requireJs/root/js'
-		if os.path.isdir(staticRootJs):
-			shutil.rmtree(staticRootJs)
-		shutil.copytree('js', 'static/requireJs/root/js/')
-
-		staticRootViews = 'static/requireJs/root/views'
-		if os.path.isdir(staticRootViews):
-			shutil.rmtree(staticRootViews)
-		shutil.copytree('views', 'static/requireJs/root/views/')
-
-		staticRootPages = 'static/requireJs/root/pages'
-		if os.path.isdir(staticRootPages):
-			shutil.rmtree(staticRootPages)
-		shutil.copytree('pages', 'static/requireJs/root/pages/')
-
-		staticHTML = 'static/requireJs/html'
-		if os.path.isdir(staticHTML):
-			shutil.rmtree(staticHTML)
-		shutil.copytree('html', 'static/requireJs/html/')
-
-		#remove files from asset root, but leave directories
-		folder = 'static/requireJs'
-		for the_file in os.listdir(folder):
-			file_path = os.path.join(folder, the_file)
-			try:
-				if os.path.isfile(file_path):
-					os.unlink(file_path)
-			except Exception, e:
-				print e
-
-		#set globalInc properties
-		#used to build the global js and css files
-		self.globalInc = globalInc.init()
-
 		self.externalJsInc = []
-		self.globalConfig = {}
-		self.globalConfig['js'] = copy.copy(self.globalInc.jsInc)
-		self.globalConfig['css'] = copy.copy(self.globalInc.cssInc)
-		self.globalConfig['htmlTemplates'] = copy.copy(self.globalInc.templates)
+		
+		def getJson():
+			#get globals
+			global_string = open('appSettings/globals.json')
+			self.g = json.load(global_string)
+			global_string.close()
+			
+			#get profile array
+			profile_string = open('appSettings/profiles.json')
+			self.profiles = json.load(profile_string)
+			profile_string.close()
+			self.profiles = self.profiles['profiles']
+			
+			#get pages
+			pages_string = open('appSettings/pages.json')
+			self.pages = json.load(pages_string)
+			self.pages = self.pages['pages']
+			pages_string.close()
+		
+		def clearStaticDir():
+			#empty generated dirs
+			indexDir = 'indexes'
+			if os.path.isdir(indexDir):
+				shutil.rmtree(indexDir)
+			os.mkdir(indexDir)
 
-		globalJsInc = 'static/requireJs/global.js'
-		jsFile = open(globalJsInc, 'w+')
-		jsFile.write(self.renderJS(self.globalConfig['js'], self.globalConfig['htmlTemplates']))
+			cssDir = 'static/css'
+			if os.path.isdir(cssDir):
+				shutil.rmtree(cssDir)
+			os.mkdir(cssDir)
 
-		mainCssInc = 'static/css/global.css'
-		cssFile = open(mainCssInc, 'w+')
-		cssFile.write(self.renderCSS(self.globalConfig['css']))
+			#clone assets into static
+			staticRootJs = 'static/requireJs/root/js'
+			if os.path.isdir(staticRootJs):
+				shutil.rmtree(staticRootJs)
+			shutil.copytree('js', 'static/requireJs/root/js/')
+
+			staticRootViews = 'static/requireJs/root/views'
+			if os.path.isdir(staticRootViews):
+				shutil.rmtree(staticRootViews)
+			shutil.copytree('views', 'static/requireJs/root/views/')
+
+			staticRootPages = 'static/requireJs/root/pages'
+			if os.path.isdir(staticRootPages):
+				shutil.rmtree(staticRootPages)
+			shutil.copytree('pages', 'static/requireJs/root/pages/')
+
+			staticHTML = 'static/requireJs/html'
+			if os.path.isdir(staticHTML):
+				shutil.rmtree(staticHTML)
+			shutil.copytree('html', 'static/requireJs/html/')
+
+			#remove files from asset root, but leave directories
+			folder = 'static/requireJs'
+			for the_file in os.listdir(folder):
+				file_path = os.path.join(folder, the_file)
+				try:
+					if os.path.isfile(file_path):
+						os.unlink(file_path)
+				except Exception, e:
+					print e
+
+		def buildGlobalIncs():
+			self.globalInc = parseConfig.parseConfig({
+				'global' : 'true'
+			})
+			
+			#set globalInc properties
+			#used to build the global js and css files
+			self.globalConfig = {
+				'js' : [],
+				'css' : [],
+				'html' : []
+			}
+			
+			if  hasattr(self.globalInc, 'js'):
+				self.globalConfig['js'] = self.globalInc.js
+			
+			if  hasattr(self.globalInc, 'css'):
+				self.globalConfig['css'] = self.globalInc.css
+			
+			if  hasattr(self.globalInc, 'html'):
+				self.globalConfig['html'] = self.globalInc.html
+
+			globalJsInc = 'static/requireJs/global.js'
+			jsFile = open(globalJsInc, 'w+')
+			jsFile.write(self.renderJS(self.globalConfig['js'], self.globalConfig['html'])) 
+
+			mainCssInc = 'static/css/global.css'
+			cssFile = open(mainCssInc, 'w+')
+			cssFile.write(self.renderCSS(self.globalConfig['css']))
+
+		getJson()
+		clearStaticDir()
+		buildGlobalIncs()
 
 		#loop over each profile
 		for profile in self.profiles:
@@ -149,10 +168,26 @@ class Build():
 	
 				#apply view configs
 				if self.views:
-					for view in self.views:
-						print 'view ============================='
-						print view
-						self.applyViewConfigs(view, self)
+					for view in self.views:																		
+						if type(view is unicode):
+							print 'page ============'
+							print page
+							
+							view = {
+								'view' : view,
+								'page' : page
+							}
+						
+						currLoc = {
+							'lang' : 'en',
+							'profile' : profile
+						}
+						
+						currView = dict(currLoc, **view)
+						
+						currViewConfig = parseConfig.parseConfig(currView)
+						
+						self.applyViewConfigs(currViewConfig, self)
 				
 				#render page
 				self.render(self.pageTemplate, self.pageName, self.profile)
@@ -182,9 +217,6 @@ class Build():
 
 		if hasattr(pageConfig, 'views'):
 			for nestedView in pageConfig.views:
-				print 'nestedView ================'
-				print nestedView
-				
 				curr.applyViewConfigs(nestedView, curr)
 
 	#add includes to config for current profile/page
@@ -278,12 +310,7 @@ class Build():
 	def renderJS(self, jsFiles, htmlTemplates):
 		jsInc = ''
 		for jsFile in jsFiles:
-			print 'jsFile'
-			print jsFile
 			if isinstance(jsFile, dict) and not (jsFile['local'] is False):
-				print 'jsFile'
-				print jsFile
-				
 				jsInc += jsFile['source'] + '\n'
 		
 		jsInc += self.renderTemplates(htmlTemplates)
@@ -308,7 +335,7 @@ class Build():
 	def renderCSS(self, cssFiles):
 		cssInc = ''
 		for cssFile in cssFiles:
-			if isinstance(cssFile, dict):
+			if isinstance(cssFile, dict) and not (cssFile['local'] is False):
 				cssInc += cssFile['source'] + '\n'
 	  
 		return cssInc

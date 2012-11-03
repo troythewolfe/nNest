@@ -2,7 +2,6 @@
 	"profiles" : [
 		"modernWeb",
 		"legacyWeb",
-		"chromeWeb",
-		"testingJson"
+		"chromeWeb"
 	]
 }
